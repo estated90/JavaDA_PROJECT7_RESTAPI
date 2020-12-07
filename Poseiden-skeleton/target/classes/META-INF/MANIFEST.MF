@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Built-By: nicol
-Build-Jdk: 14.0.1
+Built-By: nicolas
+Build-Jdk: 14.0.2
 Implementation-Title: spring-boot-skeleton
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: net.guides.springboothelloworld
