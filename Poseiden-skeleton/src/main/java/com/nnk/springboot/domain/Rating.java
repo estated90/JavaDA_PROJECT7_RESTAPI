@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "rating")
+@Table(name = "Rating")
 public class Rating {
     	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

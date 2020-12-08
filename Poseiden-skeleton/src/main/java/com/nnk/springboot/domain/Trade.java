@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "trade")
+@Table(name = "Trade")
 public class Trade {
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
