@@ -13,7 +13,7 @@ public class RuleName {
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "Id", columnDefinition = "TINYINT", nullable = false)
-	private int id;
+	private Integer id;
 	@Column(name = "name", length = 125)
 	private String name;
 	@Column(name = "description", length = 125)

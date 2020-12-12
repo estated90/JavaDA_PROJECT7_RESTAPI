@@ -15,7 +15,7 @@ public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id", columnDefinition = "TINYINT", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "CurveId", columnDefinition = "TINYINT")
     private int curveId;
     @Column(name = "asOfDate")

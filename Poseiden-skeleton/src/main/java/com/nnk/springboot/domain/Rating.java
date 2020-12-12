@@ -13,7 +13,7 @@ public class Rating {
     	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "Id", columnDefinition = "TINYINT", nullable = false)
-	private int id;
+	private Integer id;
 	@Column(name = "moodysRating", length = 125)
 	private String moodysRating;
 	@Column(name = "sandPRating", length = 125)

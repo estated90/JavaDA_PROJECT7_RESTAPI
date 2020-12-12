@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "Users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
@@ -18,43 +18,67 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
+    /**
+     * @param username
+     * @param password
+     * @param fullname
+     * @param role
+     */
+    
+    
+    
+    public User(String username, String password, String fullname, String role) {
+	super();
+	this.username = username;
+	this.password = password;
+	this.fullname = fullname;
+	this.role = role;
+    }
+
+    /**
+     * 
+     */
+    public User() {
+	super();
+    }
+
     public Integer getId() {
-        return id;
+	return id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+	this.id = id;
     }
 
     public String getUsername() {
-        return username;
+	return username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+	this.username = username;
     }
 
     public String getPassword() {
-        return password;
+	return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+	this.password = password;
     }
 
     public String getFullname() {
-        return fullname;
+	return fullname;
     }
 
     public void setFullname(String fullname) {
-        this.fullname = fullname;
+	this.fullname = fullname;
     }
 
     public String getRole() {
-        return role;
+	return role;
     }
 
     public void setRole(String role) {
-        this.role = role;
+	this.role = role;
     }
 }
