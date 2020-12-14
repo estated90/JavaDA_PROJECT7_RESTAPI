@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -14,11 +15,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.InvalidUserException;
 import com.nnk.springboot.interfaces.PasswordManager;
 import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.repositories.UserRepository;
@@ -37,17 +40,39 @@ class UserServiceImplTest {
 	private UserService userService;
 	@Autowired
 	private PasswordManager passwordManager;
-    
-    @Test
-    void testSavingUserDb() {
-	User user = new User("test1","test1","test1", "USER");
-	userService.saveUserDb(user);
-	List<User> listUser = userRepository.findAll();
-	assertEquals(1, listUser.size());
-	assertEquals("test1", listUser.get(0).getFullname());
-	assertEquals("test1", listUser.get(0).getUsername());
-	assertEquals("test1", listUser.get(0).getUsername());
-	assertTrue("test1", passwordManager.passwordDecoder("test1", listUser.get(0).getPassword()));
-    }
+
+	@Test
+	void testSavingUserDb() throws InvalidUserException {
+		User user = new User("test1", "test1", "test1", "USER");
+		userService.saveUserDb(user);
+		List<User> listUser = userRepository.findAll();
+		assertEquals(1, listUser.size());
+		assertEquals("test1", listUser.get(0).getFullname());
+		assertEquals(1, listUser.get(0).getId());
+		assertEquals("test1", listUser.get(0).getUsername());
+		assertTrue("test1", passwordManager.passwordDecoder("test1", listUser.get(0).getPassword()));
+		assertEquals("USER", listUser.get(0).getRole());
+		int userDb = userRepository.findByUsername("test1").getId();
+		userService.deleteUser(userDb);
+	    Exception exception = assertThrows(InvalidUserException.class, () -> {
+	    	userService.findById(userDb);;
+	    });
+	    String expectedMessage = "Invalid user Id:" + userDb;
+	    String actualMessage = exception.getMessage();
+	    assertEquals(expectedMessage, actualMessage);
+	}
+	
+	@Test
+	void testUpdatingUserDb() throws InvalidUserException {
+		User user = new User("test2", "test2", "test2", "USER");
+		userService.saveUserDb(user);
+		user.setFullname("test3");
+		user.setPassword("test3");
+		int userDb = userRepository.findByUsername("test2").getId();
+		userService.updateUserId(userDb, user);
+		User userData = userService.findById(userDb);
+		assertEquals("test3", userData.getFullname());
+		assertTrue("test3", passwordManager.passwordDecoder("test3", userData.getPassword()));
+	}
 
 }
