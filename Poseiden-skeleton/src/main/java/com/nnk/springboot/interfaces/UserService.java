@@ -1,4 +1,4 @@
-package com.nnk.springboot.service;
+package com.nnk.springboot.interfaces;
 
 import java.util.List;
 

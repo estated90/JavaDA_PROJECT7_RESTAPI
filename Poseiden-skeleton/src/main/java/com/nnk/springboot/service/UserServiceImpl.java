@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.InvalidUserException;
+import com.nnk.springboot.interfaces.PasswordManager;
+import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.repositories.UserRepository;
 
 @Service
@@ -15,6 +17,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordManager passwordManager;
 
     @Override
     public List<User> findAllUser() {
@@ -23,8 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUserDb(User user) {
-	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	user.setPassword(encoder.encode(user.getPassword()));
+	user.setPassword(passwordManager.passwordEncoder((user.getPassword())));
 	userRepository.save(user);
 	return user;
     }

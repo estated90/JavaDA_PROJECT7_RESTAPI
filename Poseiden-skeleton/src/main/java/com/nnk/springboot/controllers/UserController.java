@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.InvalidUserException;
-import com.nnk.springboot.service.UserService;
+import com.nnk.springboot.interfaces.UserService;
 
 @Controller
 public class UserController {
