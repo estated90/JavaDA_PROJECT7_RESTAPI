@@ -15,8 +15,7 @@ import javax.validation.constraints.NotBlank;
 public class BidList {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@NotBlank
-	@Column(name = "BidListId", columnDefinition = "TINYINT", nullable = false)
+	@Column(name = "BidListId", columnDefinition = "TINYINT")
 	private Integer bidListId;
 	@Column(name = "account", length = 30, nullable = false)
 	private String account;

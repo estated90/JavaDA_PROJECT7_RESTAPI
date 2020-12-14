@@ -34,45 +34,56 @@ import com.nnk.springboot.repositories.UserRepository;
 @TestMethodOrder(OrderAnnotation.class)
 class UserServiceImplTest {
 
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private PasswordManager passwordManager;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PasswordManager passwordManager;
 
-	@Test
-	void testSavingUserDb() throws InvalidUserException {
-		User user = new User("test1", "test1", "test1", "USER");
-		userService.saveUserDb(user);
-		List<User> listUser = userRepository.findAll();
-		assertEquals(1, listUser.size());
-		assertEquals("test1", listUser.get(0).getFullname());
-		assertEquals(1, listUser.get(0).getId());
-		assertEquals("test1", listUser.get(0).getUsername());
-		assertTrue("test1", passwordManager.passwordDecoder("test1", listUser.get(0).getPassword()));
-		assertEquals("USER", listUser.get(0).getRole());
-		int userDb = userRepository.findByUsername("test1").getId();
-		userService.deleteUser(userDb);
-	    Exception exception = assertThrows(InvalidUserException.class, () -> {
-	    	userService.findById(userDb);;
-	    });
-	    String expectedMessage = "Invalid user Id:" + userDb;
-	    String actualMessage = exception.getMessage();
-	    assertEquals(expectedMessage, actualMessage);
-	}
-	
-	@Test
-	void testUpdatingUserDb() throws InvalidUserException {
-		User user = new User("test2", "test2", "test2", "USER");
-		userService.saveUserDb(user);
-		user.setFullname("test3");
-		user.setPassword("test3");
-		int userDb = userRepository.findByUsername("test2").getId();
-		userService.updateUserId(userDb, user);
-		User userData = userService.findById(userDb);
-		assertEquals("test3", userData.getFullname());
-		assertTrue("test3", passwordManager.passwordDecoder("test3", userData.getPassword()));
-	}
+    @Test
+    void testSavingUserDb() throws InvalidUserException {
+	User user = new User("test1", "test1", "test1", "USER");
+	userService.saveUserDb(user);
+	List<User> listUser = userRepository.findAll();
+	assertEquals(1, listUser.size());
+	assertEquals("test1", listUser.get(0).getFullname());
+	assertEquals(2, listUser.get(0).getId());
+	assertEquals("test1", listUser.get(0).getUsername());
+	assertTrue(passwordManager.passwordDecoder("test1", listUser.get(0).getPassword()));
+	assertEquals("USER", listUser.get(0).getRole());
+	int userDb = userRepository.findByUsername("test1").getId();
+	userService.deleteUser(userDb);
+	Exception exception = assertThrows(InvalidUserException.class, () -> {
+	    userService.findById(userDb);
+	    ;
+	});
+	String expectedMessage = "Invalid user Id:" + userDb;
+	String actualMessage = exception.getMessage();
+	assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    void testUpdatingUserDb() throws InvalidUserException {
+	User user = new User("test2", "test2", "test2", "USER");
+	userService.saveUserDb(user);
+	user.setFullname("test3");
+	user.setPassword("test3");
+	int userDb = userRepository.findByUsername("test2").getId();
+	userService.updateUserId(userDb, user);
+	User userData = userService.findById(userDb);
+	assertEquals("test3", userData.getFullname());
+	userService.deleteUser(userDb);
+    }
+
+    @Test
+    void testDeleteFail() throws InvalidUserException {
+	Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+	    userService.deleteUser(10);
+	});
+	String expectedMessage = "Invalid user Id:" + 10;
+	String actualMessage = exception.getMessage();
+	assertEquals(expectedMessage, actualMessage);
+    }
 
 }
