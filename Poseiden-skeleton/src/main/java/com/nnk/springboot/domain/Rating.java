@@ -23,22 +23,18 @@ public class Rating {
 	@Column(name = "orderNumber", columnDefinition = "TINYINT")
 	private int orderNumber;
 	
-	public Rating(String moodysRating, String sandPRating, String fitchRating, int orderNumber) {
-	    this.moodysRating = moodysRating;
-	    this.sandPRating = sandPRating;
-	    this.fitchRating = fitchRating;
-	    this.orderNumber = orderNumber;
+	public Rating() {
 	}
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 	    return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 	    this.id = id;
 	}
 	/**

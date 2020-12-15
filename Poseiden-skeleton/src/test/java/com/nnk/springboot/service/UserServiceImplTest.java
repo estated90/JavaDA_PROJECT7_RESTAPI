@@ -1,9 +1,15 @@
 package com.nnk.springboot.service;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
+
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -12,10 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.User;
@@ -46,7 +48,7 @@ class UserServiceImplTest {
 	List<User> listUser = userRepository.findAll();
 	assertEquals(1, listUser.size());
 	assertEquals("test1", listUser.get(0).getFullname());
-	assertEquals(2, listUser.get(0).getId());
+	assertNotNull(listUser.get(0).getId());
 	assertEquals("test1", listUser.get(0).getUsername());
 	assertTrue(passwordManager.passwordDecoder("test1", listUser.get(0).getPassword()));
 	assertEquals("USER", listUser.get(0).getRole());

@@ -28,7 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 @TestPropertySource(locations = "classpath:application-test.properties")
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class Usertest {
+public class UserTest {
 
     @Autowired
     private WebApplicationContext wac;

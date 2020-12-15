@@ -27,35 +27,16 @@ public class RuleName {
 	@Column(name = "sqlStr", length = 125)
 	private String sqlStr;
 	
-	
-	
-	/**
-	 * @param name
-	 * @param description
-	 * @param json
-	 * @param template
-	 * @param sqlPart
-	 * @param sqlStr
-	 */
-	public RuleName(String name, String description, String json, String template, String sqlPart, String sqlStr) {
-	    super();
-	    this.name = name;
-	    this.description = description;
-	    this.json = json;
-	    this.template = template;
-	    this.sqlPart = sqlPart;
-	    this.sqlStr = sqlStr;
-	}
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 	    return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 	    this.id = id;
 	}
 	/**

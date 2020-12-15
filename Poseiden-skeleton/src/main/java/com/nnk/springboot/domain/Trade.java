@@ -58,25 +58,19 @@ public class Trade {
 	@Column(name = "side", length = 125)
 	private String side;
 	
-	/**
-	 * @param account
-	 * @param type
-	 */
-	public Trade(String account, String type) {
-	    super();
-	    this.account = account;
-	    this.type = type;
+	public Trade() {
+		// TODO Auto-generated constructor stub
 	}
 	/**
 	 * @return the tradeId
 	 */
-	public int getTradeId() {
+	public Integer getTradeId() {
 	    return tradeId;
 	}
 	/**
 	 * @param tradeId the tradeId to set
 	 */
-	public void setTradeId(int tradeId) {
+	public void setTradeId(Integer tradeId) {
 	    this.tradeId = tradeId;
 	}
 	/**
