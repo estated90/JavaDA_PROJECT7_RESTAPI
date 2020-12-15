@@ -64,6 +64,10 @@ public class BidList {
 	    this.dealType = type;
 	    this.account = account;
 	}
+	
+	public BidList() {
+	}
+	
 	/**
 	 * @return the bidListId
 	 */
