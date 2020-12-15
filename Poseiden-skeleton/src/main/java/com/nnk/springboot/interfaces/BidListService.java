@@ -11,4 +11,12 @@ public interface BidListService {
 
     List<BidList> getAllBidList();
 
+	BidList findById(Integer id);
+
+	BidList updateBidList(Integer id, BidList bidList);
+
+	void deletBidList(Integer id);
+
+	BidList saveBidListDb(BidList bidList);
+
 }

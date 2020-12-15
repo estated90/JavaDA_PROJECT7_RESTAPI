@@ -22,8 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.nnk.springboot.controllers.UserController;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = Application.class)
 @AutoConfigureMockMvc
@@ -32,8 +30,6 @@ import com.nnk.springboot.controllers.UserController;
 @TestMethodOrder(OrderAnnotation.class)
 public class Usertest {
 
-    @Autowired
-    private UserController userController;
     @Autowired
     private WebApplicationContext wac;
     @Autowired
