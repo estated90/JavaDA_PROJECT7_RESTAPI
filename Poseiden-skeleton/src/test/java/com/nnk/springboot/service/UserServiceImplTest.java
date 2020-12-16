@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.exception.InvalidUserException;
 import com.nnk.springboot.interfaces.PasswordManager;
 import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.repositories.UserRepository;
@@ -42,10 +41,10 @@ class UserServiceImplTest {
     private PasswordManager passwordManager;
 
     @Test
-    void testSavingUserDb() throws InvalidUserException {
+    void testSavingUserDb() {
 	User user = new User("test1", "test1", "test1", "USER");
 	userService.saveUserDb(user);
-	List<User> listUser = userRepository.findAll();
+	List<User> listUser = userService.findAllUser();
 	assertEquals(1, listUser.size());
 	assertEquals("test1", listUser.get(0).getFullname());
 	assertNotNull(listUser.get(0).getId());
@@ -54,7 +53,7 @@ class UserServiceImplTest {
 	assertEquals("USER", listUser.get(0).getRole());
 	int userDb = userRepository.findByUsername("test1").getId();
 	userService.deleteUser(userDb);
-	Exception exception = assertThrows(InvalidUserException.class, () -> {
+	Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 	    userService.findById(userDb);
 	    ;
 	});
@@ -64,7 +63,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testUpdatingUserDb() throws InvalidUserException {
+    void testUpdatingUserDb() {
 	User user = new User("test2", "test2", "test2", "USER");
 	userService.saveUserDb(user);
 	user.setFullname("test3");
@@ -77,7 +76,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testDeleteFail() throws InvalidUserException {
+    void testDeleteFail() {
 	Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 	    userService.deleteUser(10);
 	});

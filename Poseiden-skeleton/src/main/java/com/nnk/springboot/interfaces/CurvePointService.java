@@ -6,14 +6,14 @@ import com.nnk.springboot.domain.CurvePoint;
 
 public interface CurvePointService {
 
-	List<CurvePoint> getAllBidList();
+	List<CurvePoint> getAllCurvePoint();
 
-	CurvePoint saveUserDb(CurvePoint curvePoint);
+	CurvePoint saveCurvePointDb(CurvePoint curvePoint);
 
-	CurvePoint findById(Integer id);
+	CurvePoint findCurvePointById(Integer id);
 
-	CurvePoint updateBidList(Integer id, CurvePoint curvePoint);
+	CurvePoint updateCurvePoint(Integer id, CurvePoint curvePoint);
 
-	void deletBidList(Integer id);
+	void deletCurvePoint(Integer id);
 
 }

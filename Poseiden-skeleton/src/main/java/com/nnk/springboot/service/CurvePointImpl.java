@@ -20,7 +20,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
-	public List<CurvePoint> getAllBidList() {
+	public List<CurvePoint> getAllCurvePoint() {
 		logger.info("Getting all the curve point from db");
 		List<CurvePoint>  curvePoint = curvePointRepository.findAll();
 		logger.info("curve point returned :{}", curvePoint);
@@ -29,7 +29,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
-	public CurvePoint saveUserDb(CurvePoint curvePoint) {
+	public CurvePoint saveCurvePointDb(CurvePoint curvePoint) {
 		logger.info("Saving new curve point:{}",curvePoint);
 		curvePointRepository.save(curvePoint);
 		logger.info("curve point created:{}",curvePoint);
@@ -38,17 +38,17 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
-	public CurvePoint findById(Integer id) {
+	public CurvePoint findCurvePointById(Integer id) {
 		logger.info("Finding the curve point with id :{}", id);
 		CurvePoint curvePoint = curvePointRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid bidlist Id:" + id));
+				.orElseThrow(() -> new IllegalArgumentException("Invalid curve point Id:" + id));
 		logger.info("Returning the curve point with id :{} : {}", id, curvePoint);
 		return curvePoint;
 	}
 
 	
 	@Override
-	public CurvePoint updateBidList(Integer id, CurvePoint curvePoint) {
+	public CurvePoint updateCurvePoint(Integer id, CurvePoint curvePoint) {
 		logger.info("Updating the curve point with id :{}", id);
 		curvePoint.setId(id);
 		curvePointRepository.save(curvePoint);
@@ -58,7 +58,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
-	public void deletBidList(Integer id) {
+	public void deletCurvePoint(Integer id) {
 		logger.info("Deleting the curve point with id :{}", id);
 		CurvePoint curvePoint = curvePointRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid curve point Id:" + id));

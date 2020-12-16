@@ -38,7 +38,7 @@ public class RuleNameImpl implements RuleNameService {
 	public RuleName findRuleNameById(Integer id) {
 		logger.info("Finding the rule name with id :{}", id);
 		RuleName ruleName = ruleNameRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid bidlist Id:" + id));
+				.orElseThrow(() -> new IllegalArgumentException("Invalid rule name Id:" + id));
 		logger.info("Returning the rule name with id :{} : {}", id, ruleName);
 		return ruleName;
 	}

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.exception.InvalidUserException;
 import com.nnk.springboot.interfaces.UserService;
 
 @Controller
@@ -49,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/user/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws InvalidUserException {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 	logger.info("Getting user with id : {}", id);
 	User user = userService.findById(id);
 	model.addAttribute("user", user);

@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -23,7 +23,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.exception.InvalidUserException;
 import com.nnk.springboot.interfaces.BidListService;
 import com.nnk.springboot.repositories.BidListRepository;
 
@@ -43,7 +42,7 @@ class BidListServiceImplTest {
 	@Test
 	@Order(1)
 	@DisplayName("Saving and deleting a user")
-	void testSavingUserDb() throws InvalidUserException {
+	void testSavingUserDb() {
 		LocalDateTime now = LocalDateTime.now();
 		BidList bidList = new BidList();
 		bidList.setAccount("test1");
@@ -88,7 +87,7 @@ class BidListServiceImplTest {
 	@Test
 	@Order(2)
 	@DisplayName("Saving and updating a user")
-	void testUpdatingUserDb() throws InvalidUserException {
+	void testUpdatingUserDb() {
 		BidList bidList = new BidList();
 		bidList.setAccount("test1");
 		bidList.setType("Sells");

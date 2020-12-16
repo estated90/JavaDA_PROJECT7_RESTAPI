@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.exception.InvalidUserException;
 import com.nnk.springboot.interfaces.PasswordManager;
 import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.repositories.UserRepository;
@@ -38,9 +37,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findById(Integer id) throws InvalidUserException {
+	public User findById(Integer id)  {
 		logger.info("Finding the user with id :{}", id);
-		User user = userRepository.findById(id).orElseThrow(() -> new InvalidUserException("Invalid user Id:" + id));
+		User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 		user.setPassword("");
 		logger.info("Returning the user with id :{} : {}", id, user);
 		return user;
