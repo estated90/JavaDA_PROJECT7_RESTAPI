@@ -38,7 +38,7 @@ public class TradeImpl implements TradeService {
 	public Trade findTradeById(Integer id) {
 		logger.info("Finding the trade with id :{}", id);
 		Trade trade = tradeRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid bidlist Id:" + id));
+				.orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
 		logger.info("Returning the trade with id :{} : {}", id, trade);
 		return trade;
 	}

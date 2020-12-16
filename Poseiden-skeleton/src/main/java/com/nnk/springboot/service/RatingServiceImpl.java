@@ -38,7 +38,7 @@ public class RatingServiceImpl implements RatingService {
 	public Rating findRatingById(Integer id) {
 		logger.info("Finding the rating with id :{}", id);
 		Rating rating = ratingRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid bidlist Id:" + id));
+				.orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
 		logger.info("Returning the rating with id :{} : {}", id, rating);
 		return rating;
 	}
