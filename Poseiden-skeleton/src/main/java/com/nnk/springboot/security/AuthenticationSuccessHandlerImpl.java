@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +22,18 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     @Autowired
     private UserRepository userRepository;
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest arg0, HttpServletResponse arg1, Authentication arg2) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         userRepository.updateLastLogin(new Date());
+        GrantedAuthority authority = authentication.getAuthorities().stream().filter(a -> a.getAuthority().equals("USER")).findAny().orElse(null);
+        // Very simple (most probably broken) check if the user is ADMIN or USER
+        if (authority != null){
+            redirectStrategy.sendRedirect(request, response, "/home");
+        } else {
+            redirectStrategy.sendRedirect(request, response, "user/list");
+        }
     }
 	
 }
