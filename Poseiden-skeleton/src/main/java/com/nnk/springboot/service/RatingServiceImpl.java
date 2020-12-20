@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.interfaces.RatingService;
@@ -19,6 +20,7 @@ public class RatingServiceImpl implements RatingService {
 	private RatingRepository ratingRepository;
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Rating> getAllRating() {
 		logger.info("Getting all the rating from db");
 		List<Rating> rating = ratingRepository.findAll();
@@ -27,6 +29,7 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
+	@Transactional
 	public Rating saveRatingrDb(Rating rating) {
 		logger.info("Saving new rating:{}",rating);
 		ratingRepository.save(rating);
@@ -35,6 +38,7 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Rating findRatingById(Integer id) {
 		logger.info("Finding the rating with id :{}", id);
 		Rating rating = ratingRepository.findById(id)
@@ -44,6 +48,7 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
+	@Transactional
 	public Rating updateRating(Integer id, Rating rating) {
 		logger.info("Updating the rating with id :{}", id);
 		rating.setId(id);
@@ -53,6 +58,7 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
+	@Transactional
 	public void deletRating(Integer id) {
 		logger.info("Deleting the rating with id :{}", id);
 		Rating rating = ratingRepository.findById(id)

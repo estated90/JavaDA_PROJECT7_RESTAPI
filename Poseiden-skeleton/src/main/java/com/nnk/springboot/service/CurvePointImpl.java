@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.interfaces.CurvePointService;
@@ -20,6 +21,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
+	@Transactional(readOnly=true)
 	public List<CurvePoint> getAllCurvePoint() {
 		logger.info("Getting all the curve point from db");
 		List<CurvePoint>  curvePoint = curvePointRepository.findAll();
@@ -29,6 +31,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
+	@Transactional
 	public CurvePoint saveCurvePointDb(CurvePoint curvePoint) {
 		logger.info("Saving new curve point:{}",curvePoint);
 		curvePointRepository.save(curvePoint);
@@ -36,8 +39,8 @@ public class CurvePointImpl implements CurvePointService {
 		return curvePoint;
 	}
 
-	
 	@Override
+	@Transactional(readOnly=true)
 	public CurvePoint findCurvePointById(Integer id) {
 		logger.info("Finding the curve point with id :{}", id);
 		CurvePoint curvePoint = curvePointRepository.findById(id)
@@ -48,6 +51,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
+	@Transactional
 	public CurvePoint updateCurvePoint(Integer id, CurvePoint curvePoint) {
 		logger.info("Updating the curve point with id :{}", id);
 		curvePoint.setId(id);
@@ -58,6 +62,7 @@ public class CurvePointImpl implements CurvePointService {
 
 	
 	@Override
+	@Transactional
 	public void deletCurvePoint(Integer id) {
 		logger.info("Deleting the curve point with id :{}", id);
 		CurvePoint curvePoint = curvePointRepository.findById(id)

@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -17,6 +19,7 @@ public class User {
     private String fullname;
     @NotBlank(message = "Role is mandatory")
     private String role;
+    private Date lastLogin;
 
     /**
      * @param username
@@ -81,4 +84,12 @@ public class User {
     public void setRole(String role) {
 	this.role = role;
     }
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 }

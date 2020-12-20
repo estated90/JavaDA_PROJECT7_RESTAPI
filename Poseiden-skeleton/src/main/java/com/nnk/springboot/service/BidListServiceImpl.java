@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.interfaces.BidListService;
@@ -19,6 +20,7 @@ public class BidListServiceImpl implements BidListService {
 	private BidListRepository bidListRepository;
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<BidList> getAllBidList() {
 		logger.info("Getting all the bid list from db");
 		List<BidList> bidList = bidListRepository.findAll();
@@ -27,6 +29,7 @@ public class BidListServiceImpl implements BidListService {
 	}
 
 	@Override
+	@Transactional
 	public BidList saveBidListDb(BidList bidList) {
 		logger.info("Saving new bid list:{}", bidList);
 		bidListRepository.save(bidList);
@@ -35,6 +38,7 @@ public class BidListServiceImpl implements BidListService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public BidList findById(Integer id) {
 		logger.info("Finding the bid list with id :{}", id);
 		BidList bidList = bidListRepository.findById(id)
@@ -44,6 +48,7 @@ public class BidListServiceImpl implements BidListService {
 	}
 
 	@Override
+	@Transactional
 	public BidList updateBidList(Integer id, BidList bidList) {
 		logger.info("Updating the bid list with id :{}", id);
 		bidList.setBidListId(id);
@@ -53,6 +58,7 @@ public class BidListServiceImpl implements BidListService {
 	}
 
 	@Override
+	@Transactional
 	public void deletBidList(Integer id) {
 		logger.info("Deleting the bid list with id :{}", id);
 		BidList bidList = bidListRepository.findById(id)

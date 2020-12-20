@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.interfaces.RuleNameService;
@@ -19,6 +20,7 @@ public class RuleNameImpl implements RuleNameService {
 	private RuleNameRepository ruleNameRepository;
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<RuleName> getAllRuleName() {
 		logger.info("Getting all the rule name from db");
 		List<RuleName> ruleName = ruleNameRepository.findAll();
@@ -27,6 +29,7 @@ public class RuleNameImpl implements RuleNameService {
 	}
 
 	@Override
+	@Transactional
 	public RuleName saveRuleNameDb(RuleName ruleName) {
 		logger.info("Saving new rule name:{}",ruleName);
 		ruleNameRepository.save(ruleName);
@@ -35,6 +38,7 @@ public class RuleNameImpl implements RuleNameService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public RuleName findRuleNameById(Integer id) {
 		logger.info("Finding the rule name with id :{}", id);
 		RuleName ruleName = ruleNameRepository.findById(id)
@@ -44,6 +48,7 @@ public class RuleNameImpl implements RuleNameService {
 	}
 
 	@Override
+	@Transactional
 	public RuleName updateRuleName(Integer id, RuleName ruleName) {
 		logger.info("Updating the rule name with id :{}", id);
 		ruleName.setId(id);
@@ -53,6 +58,7 @@ public class RuleNameImpl implements RuleNameService {
 	}
 
 	@Override
+	@Transactional
 	public void deletRuleName(Integer id) {
 		logger.info("Deleting the rule name with id :{}", id);
 		RuleName ruleName = ruleNameRepository.findById(id)

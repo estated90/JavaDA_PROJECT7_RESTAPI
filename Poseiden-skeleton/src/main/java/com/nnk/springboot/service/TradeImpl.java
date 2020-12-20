@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.interfaces.TradeService;
@@ -19,6 +20,7 @@ public class TradeImpl implements TradeService {
 	private TradeRepository tradeRepository;
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Trade> getAllTrade() {
 		logger.info("Getting all the trade from db");
 		List<Trade> trade = tradeRepository.findAll();
@@ -27,6 +29,7 @@ public class TradeImpl implements TradeService {
 	}
 
 	@Override
+	@Transactional
 	public Trade saveTradeDb(Trade trade) {
 		logger.info("Saving new trade:{}",trade);
 		tradeRepository.save(trade);
@@ -35,6 +38,7 @@ public class TradeImpl implements TradeService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Trade findTradeById(Integer id) {
 		logger.info("Finding the trade with id :{}", id);
 		Trade trade = tradeRepository.findById(id)
@@ -44,6 +48,7 @@ public class TradeImpl implements TradeService {
 	}
 
 	@Override
+	@Transactional
 	public Trade updateTrade(Integer id, Trade trade) {
 		logger.info("Updating the trade with id :{}", id);
 		trade.setTradeId(id);
@@ -53,6 +58,7 @@ public class TradeImpl implements TradeService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteTrade(Integer id) {
 		logger.info("Deleting the trade with id :{}", id);
 		Trade trade = tradeRepository.findById(id)
