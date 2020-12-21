@@ -26,7 +26,7 @@ public class TradeController {
 	@RequestMapping("/trade/list")
 	public String home(Model model) {
 		logger.info("Getting all trade of DB");
-		model.addAttribute("trade", tradeService.getAllTrade());
+		model.addAttribute("trades", tradeService.getAllTrade());
 		return "trade/list";
 	}
 
@@ -43,9 +43,9 @@ public class TradeController {
 			return "trade/add";
 		}
 		tradeService.saveTradeDb(trade);
-		model.addAttribute("ruleName", tradeService.getAllTrade());
+		model.addAttribute("trade", tradeService.getAllTrade());
 		logger.info("{} has been created in the db", trade);
-		return "trade/add";
+		return "redirect:/trade/list";
 	}
 
 	@GetMapping("/trade/update/{id}")

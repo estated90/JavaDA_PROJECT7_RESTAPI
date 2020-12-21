@@ -26,7 +26,7 @@ public class BidListController {
 	@RequestMapping("/bidList/list")
 	public String home(Model model) {
 		logger.info("Getting all bids of DB");
-		model.addAttribute("bidlist", bidListService.getAllBidList());
+		model.addAttribute("bidlists", bidListService.getAllBidList());
 		return "bidList/list";
 	}
 
@@ -45,14 +45,14 @@ public class BidListController {
 		bidListService.saveBidListDb(bid);
 		model.addAttribute("bidlist", bidListService.getAllBidList());
 		logger.info("{} has been created in the db", bid);
-		return "bidList/add";
+		return "redirect:/bidList/list";
 	}
 
 	@GetMapping("/bidList/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting bids with id : {}", id);
 		BidList bid = bidListService.findById(id);
-		model.addAttribute("bidlist", bid);
+		model.addAttribute("bidList", bid);
 		logger.info("Returning bids : {}", bid);
 		return "bidList/update";
 	}
@@ -65,7 +65,7 @@ public class BidListController {
 			return "bidList/update";
 		}
 		bidListService.updateBidList(id, bidList);
-		model.addAttribute("bidlist", bidListService.findById(id));
+		model.addAttribute("bidlists", bidListService.findById(id));
 		logger.info("bids was udpated");
 		return "redirect:/bidList/list";
 	}
@@ -74,7 +74,7 @@ public class BidListController {
 	public String deleteBid(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting bids with id : {}", id);
 		bidListService.deletBidList(id);
-		model.addAttribute("bidlist", bidListService.getAllBidList());
+		model.addAttribute("bidlists", bidListService.getAllBidList());
 		logger.info("bids was deleted");
 		return "redirect:/bidList/list";
 	}
