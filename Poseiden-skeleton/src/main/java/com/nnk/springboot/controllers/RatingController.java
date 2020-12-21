@@ -26,7 +26,7 @@ public class RatingController {
 	@RequestMapping("/rating/list")
 	public String home(Model model) {
 		logger.info("Getting all rating of DB");
-		model.addAttribute("rating", ratingService.getAllRating());
+		model.addAttribute("ratings", ratingService.getAllRating());
 		return "rating/list";
 	}
 
@@ -43,9 +43,9 @@ public class RatingController {
 			return "rating/add";
 		}
 		ratingService.saveRatingrDb(rating);
-		model.addAttribute("rating", ratingService.getAllRating());
+		model.addAttribute("ratings", ratingService.getAllRating());
 		logger.info("{} has been created in the db", rating);
-		return "rating/add";
+		return "redirect:/rating/list";
 	}
 
 	@GetMapping("/rating/update/{id}")
@@ -66,7 +66,7 @@ public class RatingController {
 			return "rating/update";
 		}
 		ratingService.updateRating(id, rating);
-		model.addAttribute("rating", ratingService.getAllRating());
+		model.addAttribute("ratings", ratingService.getAllRating());
 		logger.info("rating was udpated");
 		return "redirect:/rating/list";
 	}
@@ -75,7 +75,7 @@ public class RatingController {
 	public String deleteRating(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rating with id : {}", id);
 		ratingService.deletRating(id);
-		model.addAttribute("rating", ratingService.getAllRating());
+		model.addAttribute("ratings", ratingService.getAllRating());
 		logger.info("rating was deleted");
 		return "redirect:/rating/list";
 	}

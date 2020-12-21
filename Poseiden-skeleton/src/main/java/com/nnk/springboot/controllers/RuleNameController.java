@@ -26,7 +26,7 @@ public class RuleNameController {
 	@RequestMapping("/ruleName/list")
 	public String home(Model model) {
 		logger.info("Getting all rule name of DB");
-		model.addAttribute("ruleName", ruleNameService.getAllRuleName());
+		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
 		return "ruleName/list";
 	}
 
@@ -43,9 +43,9 @@ public class RuleNameController {
 			return "ruleName/add";
 		}
 		ruleNameService.saveRuleNameDb(ruleName);
-		model.addAttribute("ruleName", ruleNameService.getAllRuleName());
+		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
 		logger.info("{} has been created in the db", ruleName);
-		return "ruleName/add";
+		return "redirect:/ruleName/add";
 	}
 
 	@GetMapping("/ruleName/update/{id}")
@@ -66,7 +66,7 @@ public class RuleNameController {
 			return "ruleName/update";
 		}
 		ruleNameService.updateRuleName(id, ruleName);
-		model.addAttribute("ruleName", ruleNameService.getAllRuleName());
+		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
 		logger.info("rule name was udpated");
 		return "redirect:/ruleName/list";
 	}
@@ -75,7 +75,7 @@ public class RuleNameController {
 	public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rule name with id : {}", id);
 		ruleNameService.deletRuleName(id);
-		model.addAttribute("ruleName", ruleNameService.getAllRuleName());
+		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
 		logger.info("rule name was deleted");
 		return "redirect:/ruleName/list";
 	}

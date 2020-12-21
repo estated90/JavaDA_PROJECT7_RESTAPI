@@ -26,7 +26,7 @@ public class CurveController {
 	@RequestMapping("/curvePoint/list")
 	public String home(Model model) {
 		logger.info("Getting all curve point of DB");
-		model.addAttribute("curve", curveService.getAllCurvePoint());
+		model.addAttribute("curves", curveService.getAllCurvePoint());
 		return "curvePoint/list";
 	}
 
@@ -43,9 +43,9 @@ public class CurveController {
 			return "curvePoint/add";
 		}
 		curveService.saveCurvePointDb(curvePoint);
-		model.addAttribute("curve", curveService.getAllCurvePoint());
+		model.addAttribute("curves", curveService.getAllCurvePoint());
 		logger.info("{} has been created in the db", curvePoint);
-		return "curvePoint/add";
+		return "redirect:/curvePoint/list";
 	}
 
 	@GetMapping("/curvePoint/update/{id}")
