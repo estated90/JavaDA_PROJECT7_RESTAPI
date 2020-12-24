@@ -21,6 +21,7 @@ public class User {
 	@NotBlank(message = "Role is mandatory")
 	private String role;
 	private Date lastLogin;
+	private boolean enabled;
 
 	/**
 	 * @param username
@@ -90,5 +91,13 @@ public class User {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }
