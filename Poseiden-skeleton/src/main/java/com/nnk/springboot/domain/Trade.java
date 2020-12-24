@@ -8,17 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Trade")
 public class Trade {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TradeId", columnDefinition = "TINYINT", nullable = false)
     private Integer tradeId;
     @Column(name = "account", length = 30, nullable = false)
+    @NotBlank(message = "Account is mandatory")
     private String account;
     @Column(name = "type", length = 30, nullable = false)
+    @NotBlank(message = "Type is mandatory")
     private String type;
     @Column(name = "buyQuantity")
     private double buyQuantity;

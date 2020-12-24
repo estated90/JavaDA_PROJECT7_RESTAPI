@@ -19,4 +19,6 @@ public interface PasswordManager {
 	 */
 	boolean passwordDecoder(String password, String encodedPassword);
 
+	boolean isValidPassword(String password);
+
 }

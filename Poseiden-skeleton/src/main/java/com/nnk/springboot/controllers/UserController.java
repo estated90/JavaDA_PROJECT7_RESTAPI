@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.UserException;
 import com.nnk.springboot.interfaces.UserService;
 
 @Controller
@@ -39,7 +40,7 @@ public class UserController {
 
 	@RolesAllowed({"ADMIN"})
 	@PostMapping("/user/validate")
-	public String validate(@Valid User user, BindingResult result, Model model) {
+	public String validate(@Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Creation of the user : {}", user);
 		if (result.hasErrors()) {
 			logger.error("User data was not valid : {}", user);
@@ -63,7 +64,7 @@ public class UserController {
 
 	@RolesAllowed({"ADMIN"})
 	@PostMapping("/user/update/{id}")
-	public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
+	public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Updating user : {} with id : {}", user, id);
 		if (result.hasErrors()) {
 			logger.info("User was not valid : {} with id : {}", user, id);

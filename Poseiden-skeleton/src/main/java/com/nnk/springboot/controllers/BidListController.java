@@ -40,6 +40,7 @@ public class BidListController {
 		logger.info("Creation of the bids : {}", bid);
 		if (result.hasErrors()) {
 			logger.error("bids data was not valid : {}", bid);
+			model.addAttribute("errors",result.getAllErrors());
 			return "bidList/add";
 		}
 		bidListService.saveBidListDb(bid);

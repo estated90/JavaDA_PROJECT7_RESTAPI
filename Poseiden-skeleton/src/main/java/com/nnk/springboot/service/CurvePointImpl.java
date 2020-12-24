@@ -1,5 +1,6 @@
 package com.nnk.springboot.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -34,6 +35,8 @@ public class CurvePointImpl implements CurvePointService {
 	@Transactional
 	public CurvePoint saveCurvePointDb(CurvePoint curvePoint) {
 		logger.info("Saving new curve point:{}",curvePoint);
+		curvePoint.setCreationDate(LocalDateTime.now());
+		curvePoint.setAsOfDate(LocalDateTime.now());
 		curvePointRepository.save(curvePoint);
 		logger.info("curve point created:{}",curvePoint);
 		return curvePoint;

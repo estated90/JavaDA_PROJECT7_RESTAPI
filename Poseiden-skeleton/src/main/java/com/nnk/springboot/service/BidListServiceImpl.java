@@ -5,12 +5,15 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.interfaces.BidListService;
 import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.repositories.UserRepository;
 
 @Service
 public class BidListServiceImpl implements BidListService {
@@ -18,7 +21,10 @@ public class BidListServiceImpl implements BidListService {
 	private static final Logger logger = LogManager.getLogger("BidListServiceImpl");
 	@Autowired
 	private BidListRepository bidListRepository;
+	@Autowired
+	private UserRepository userservice;
 
+	
 	@Override
 	@Transactional(readOnly=true)
 	public List<BidList> getAllBidList() {
@@ -32,6 +38,9 @@ public class BidListServiceImpl implements BidListService {
 	@Transactional
 	public BidList saveBidListDb(BidList bidList) {
 		logger.info("Saving new bid list:{}", bidList);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		bidList.setTrader(userservice.findByUsername(currentPrincipalName).getFullname());
 		bidListRepository.save(bidList);
 		logger.info("Bid list created:{}", bidList);
 		return bidList;

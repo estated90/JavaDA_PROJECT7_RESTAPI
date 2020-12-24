@@ -6,17 +6,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "RuleName")
 public class RuleName {
     @Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", columnDefinition = "TINYINT", nullable = false)
 	private Integer id;
 	@Column(name = "name", length = 125)
+	@NotBlank(message = "name is mandatory")
 	private String name;
 	@Column(name = "description", length = 125)
+	@NotBlank(message = "description is mandatory")
 	private String description;
 	@Column(name = "json", length = 125)
 	private String json;

@@ -9,9 +9,10 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "Users")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@NotBlank(message = "Username is mandatory")
+	@Column(name = "username", unique = true)
 	private String username;
 	@NotBlank(message = "Password is mandatory")
 	private String password;
