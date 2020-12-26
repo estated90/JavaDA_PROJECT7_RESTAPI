@@ -30,7 +30,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         GrantedAuthority authority = authentication.getAuthorities().stream().filter(a -> a.getAuthority().equals("USER")).findAny().orElse(null);
         // Very simple (most probably broken) check if the user is ADMIN or USER
         if (authority != null){
-            redirectStrategy.sendRedirect(request, response, "/home");
+            redirectStrategy.sendRedirect(request, response, "/bidList/list");
         } else {
             redirectStrategy.sendRedirect(request, response, "user/list");
         }
