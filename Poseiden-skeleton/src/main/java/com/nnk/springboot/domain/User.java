@@ -1,60 +1,133 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    @NotBlank(message = "Username is mandatory")
-    private String username;
-    @NotBlank(message = "Password is mandatory")
-    private String password;
-    @NotBlank(message = "FullName is mandatory")
-    private String fullname;
-    @NotBlank(message = "Role is mandatory")
-    private String role;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@NotBlank(message = "Username is mandatory")
+	@Column(name = "username", unique = true)
+	private String username;
+	@NotBlank(message = "Password is mandatory")
+	private String password;
+	@NotBlank(message = "FullName is mandatory")
+	private String fullname;
+	@NotBlank(message = "Role is mandatory")
+	private String role;
+	private Date lastLogin;
+	@ColumnDefault("true")
+	private boolean enabled;
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "authorities_fk", foreignKey=@ForeignKey(name="authorities_fk"), nullable = false)
+	private Authorities authorities;
 
-    public Integer getId() {
-        return id;
-    }
+	/**
+	 * @param username
+	 * @param password
+	 * @param fullname
+	 * @param role
+	 */
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public User(String username, String password, String fullname, String role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.role = role;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	/**
+	 * 
+	 */
+	public User() {
+		super();
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getFullname() {
-        return fullname;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	/**
+	 * @return the authorities
+	 */
+	public Authorities getAuthorities() {
+		return authorities;
+	}
+
+	/**
+	 * @param authorities the authorities to set
+	 */
+	public void setAuthorities(Authorities authorities) {
+		this.authorities = authorities;
+	}
+	
 }
