@@ -18,22 +18,24 @@ import org.springframework.stereotype.Component;
 import com.nnk.springboot.repositories.UserRepository;
 
 @Component
-public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler{
+public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private UserRepository userRepository;
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	@Autowired
+	private UserRepository userRepository;
+	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        userRepository.updateLastLogin(new Date());
-        GrantedAuthority authority = authentication.getAuthorities().stream().filter(a -> a.getAuthority().equals("USER")).findAny().orElse(null);
-        // Very simple (most probably broken) check if the user is ADMIN or USER
-        if (authority != null){
-            redirectStrategy.sendRedirect(request, response, "/bidList/list");
-        } else {
-            redirectStrategy.sendRedirect(request, response, "user/list");
-        }
-    }
-	
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+		userRepository.updateLastLogin(new Date());
+		GrantedAuthority authority = authentication.getAuthorities().stream()
+				.filter(a -> a.getAuthority().equals("USER")).findAny().orElse(null);
+		// Very simple (most probably broken) check if the user is ADMIN or USER
+		if (authority != null) {
+			redirectStrategy.sendRedirect(request, response, "/bidList/list");
+		} else {
+			redirectStrategy.sendRedirect(request, response, "user/list");
+		}
+	}
+
 }

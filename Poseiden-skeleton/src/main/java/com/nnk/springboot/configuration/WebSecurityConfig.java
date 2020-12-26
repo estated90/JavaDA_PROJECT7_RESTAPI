@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	            .logout()
 	            .logoutUrl("/app-logout")
+	            .logoutSuccessUrl("login")
 	            .addLogoutHandler(logoutHandler)
 	            .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
 	            .permitAll()

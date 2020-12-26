@@ -34,9 +34,6 @@ public class User {
 	private Date lastLogin;
 	@ColumnDefault("true")
 	private boolean enabled;
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "authorities_fk", foreignKey=@ForeignKey(name="authorities_fk"), nullable = false)
-	private Authorities authorities;
 
 	/**
 	 * @param username
@@ -116,18 +113,4 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	/**
-	 * @return the authorities
-	 */
-	public Authorities getAuthorities() {
-		return authorities;
-	}
-
-	/**
-	 * @param authorities the authorities to set
-	 */
-	public void setAuthorities(Authorities authorities) {
-		this.authorities = authorities;
-	}
-	
 }
