@@ -24,7 +24,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/user/list")
 	public String home(Model model) {
 		logger.info("Getting all user of DB");
@@ -32,13 +32,13 @@ public class UserController {
 		return "user/list";
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/user/add")
 	public String addUser(User bid) {
 		return "user/add";
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/user/validate")
 	public String validate(@Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Creation of the user : {}", user);
@@ -62,7 +62,7 @@ public class UserController {
 		return "user/update";
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/user/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Updating user : {} with id : {}", user, id);
@@ -76,7 +76,7 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting user with id : {}", id);

@@ -2,8 +2,19 @@ package com.nnk.springboot.domain;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "Users")
@@ -21,7 +32,11 @@ public class User {
 	@NotBlank(message = "Role is mandatory")
 	private String role;
 	private Date lastLogin;
+	@ColumnDefault("true")
 	private boolean enabled;
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "authorities_fk", foreignKey=@ForeignKey(name="authorities_fk"), nullable = false)
+	private Authorities authorities;
 
 	/**
 	 * @param username
@@ -100,4 +115,19 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	/**
+	 * @return the authorities
+	 */
+	public Authorities getAuthorities() {
+		return authorities;
+	}
+
+	/**
+	 * @param authorities the authorities to set
+	 */
+	public void setAuthorities(Authorities authorities) {
+		this.authorities = authorities;
+	}
+	
 }
