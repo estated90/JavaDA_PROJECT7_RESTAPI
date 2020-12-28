@@ -45,17 +45,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("login").permitAll()
+			.antMatchers("/user/**").access("hasAuthority('ADMIN')")
+        	.anyRequest().authenticated()
 			.and()
 				.formLogin().permitAll()
 				.successHandler(successHandler)
 			.and()
 	            .logout()
 	            .logoutUrl("/app-logout")
-	            .logoutSuccessUrl("login")
+	            .logoutSuccessUrl("/login")
 	            .addLogoutHandler(logoutHandler)
 	            .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
 	            .permitAll()
+            .and()
+            	.exceptionHandling().accessDeniedPage("/error")
 			.and()
 				.csrf()
                 	.disable();

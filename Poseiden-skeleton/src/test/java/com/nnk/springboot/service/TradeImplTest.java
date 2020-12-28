@@ -41,7 +41,7 @@ class TradeImplTest {
 
     @Test
     @Order(1)
-    @DisplayName("Saving and deleting a user")
+    @DisplayName("Saving and deleting a trade")
     void testSavingUserDb() {
 	LocalDateTime now = LocalDateTime.now();
 	Trade trade = new Trade();
@@ -104,7 +104,7 @@ class TradeImplTest {
 
     @Test
     @Order(2)
-    @DisplayName("Saving and updating a user")
+    @DisplayName("Saving and updating a trade")
     void testUpdatingUserDb() {
 	Trade trade = new Trade();
 	trade.setAccount("test1");

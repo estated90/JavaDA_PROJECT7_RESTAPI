@@ -41,7 +41,7 @@ class BidListServiceImplTest {
 
     @Test
     @Order(1)
-    @DisplayName("Saving and deleting a user")
+    @DisplayName("Saving and deleting a bid")
     void testSavingUserDb() {
 	LocalDateTime now = LocalDateTime.now();
 	BidList bidList = new BidList();
@@ -86,7 +86,7 @@ class BidListServiceImplTest {
 
     @Test
     @Order(2)
-    @DisplayName("Saving and updating a user")
+    @DisplayName("Saving and updating a bid")
     void testUpdatingUserDb() {
 	BidList bidList = new BidList();
 	bidList.setAccount("test1");

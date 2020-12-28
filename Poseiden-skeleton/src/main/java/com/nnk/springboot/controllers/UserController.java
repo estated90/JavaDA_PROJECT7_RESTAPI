@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +24,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RolesAllowed("ADMIN")
 	@GetMapping("/user/list")
 	public String home(Model model) {
 		logger.info("Getting all user of DB");
@@ -33,13 +31,11 @@ public class UserController {
 		return "user/list";
 	}
 
-	@RolesAllowed("ADMIN")
 	@GetMapping("/user/add")
 	public String addUser(User bid) {
 		return "user/add";
 	}
 
-	@RolesAllowed("ADMIN")
 	@PostMapping("/user/validate")
 	public String validate(@Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Creation of the user : {}", user);
@@ -53,7 +49,6 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
-	@RolesAllowed("ADMIN")
 	@GetMapping("/user/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting user with id : {}", id);
@@ -63,7 +58,6 @@ public class UserController {
 		return "user/update";
 	}
 
-	@RolesAllowed("ADMIN")
 	@PostMapping("/user/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Updating user : {} with id : {}", user, id);
@@ -77,7 +71,6 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
-	@RolesAllowed("ADMIN")
 	@GetMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting user with id : {}", id);

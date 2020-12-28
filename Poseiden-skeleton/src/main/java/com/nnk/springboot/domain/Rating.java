@@ -21,7 +21,7 @@ public class Rating {
 	private String sandPRating;
 	@Column(name = "fitchRating", length = 125)
 	private String fitchRating;
-	@Column(name = "orderNumber", columnDefinition = "TINYINT")
+	@Column(name = "orderNumber")
 	@Positive
 	private int orderNumber;
 

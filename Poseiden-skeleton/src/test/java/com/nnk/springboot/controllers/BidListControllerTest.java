@@ -3,7 +3,6 @@ package com.nnk.springboot.controllers;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -18,15 +17,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.BindingResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nnk.springboot.Application;
@@ -43,9 +43,13 @@ class BidListControllerTest {
 
 	@Mock
 	private static BidListService bidListService;
+	@Mock
+	private BindingResult bindingResult;
 	@Autowired
 	private MockMvc mockMvc;
 	private BidList bidList;
+	@InjectMocks
+	private BidListController bidListController = new BidListController();
 
 	@BeforeAll
 	private static void init() {
@@ -80,9 +84,14 @@ class BidListControllerTest {
 		when(bidListService.saveBidListDb(any(BidList.class))).thenReturn(bidList);
 		when(bidListService.getAllBidList()).thenReturn(bidListReturned);
 		String bidListAsString = asJsonString(bidList);
-		this.mockMvc.perform(post("/bidList/validate").contentType(MediaType.APPLICATION_JSON).content(bidListAsString))
-				.andExpect(status().isOk()).andExpect(view().name("bidList/list"));
+		
+		//bindingResult = new BeanPropertyBindingResult(bidList, "bidList");
+		//TODO mocker binding result
+		when(bindingResult.hasErrors()).thenReturn(false);
+		bidListController.validate(bidList, bindingResult, null);
 	}
+	
+	
 
 	public static String asJsonString(final Object obj) {
 		try {

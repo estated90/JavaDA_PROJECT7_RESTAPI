@@ -41,7 +41,7 @@ class CurvePointImplTest {
 
     @Test
     @Order(1)
-    @DisplayName("Saving and deleting a user")
+    @DisplayName("Saving and deleting a curve")
     void testSavingUserDb() {
 	LocalDateTime now = LocalDateTime.now();
 	CurvePoint curvePoint = new CurvePoint();
@@ -71,7 +71,7 @@ class CurvePointImplTest {
 
     @Test
     @Order(2)
-    @DisplayName("Saving and updating a user")
+    @DisplayName("Saving and updating a curve")
     void testUpdatingUserDb() {
 	LocalDateTime now = LocalDateTime.now();
 	CurvePoint curvePoint = new CurvePoint();
