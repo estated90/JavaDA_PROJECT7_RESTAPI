@@ -1,5 +1,7 @@
 package com.nnk.springboot.controllers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,9 +25,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,11 +70,13 @@ class BidListControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "user1", password = "pwd", roles = "USER")
 	public void testListBidList() throws Exception {
 		this.mockMvc.perform(get("/bidList/list")).andExpect(status().isOk()).andExpect(view().name("bidList/list"));
 	}
 
 	@Test
+	@WithMockUser(username = "user1", password = "pwd", roles = "USER")
 	public void testAddListBidList() throws Exception {
 		this.mockMvc.perform(get("/bidList/add")).andExpect(status().isOk()).andExpect(view().name("bidList/add"));
 	}
@@ -84,11 +91,10 @@ class BidListControllerTest {
 		when(bidListService.saveBidListDb(any(BidList.class))).thenReturn(bidList);
 		when(bidListService.getAllBidList()).thenReturn(bidListReturned);
 		String bidListAsString = asJsonString(bidList);
-		
-		//bindingResult = new BeanPropertyBindingResult(bidList, "bidList");
-		//TODO mocker binding result
 		when(bindingResult.hasErrors()).thenReturn(false);
-		bidListController.validate(bidList, bindingResult, null);
+		final Model model = new ExtendedModelMap();
+		bidListController.validate(bidList, bindingResult, model);
+		assertNotNull(model.asMap().get("bidlist"));
 	}
 	
 	
