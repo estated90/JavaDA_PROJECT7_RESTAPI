@@ -1,7 +1,5 @@
 package com.nnk.springboot.domain;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +25,6 @@ public class User {
 	private String fullname;
 	@NotBlank(message = "Role is mandatory")
 	private String role;
-	private Date lastLogin;
 	@ColumnDefault("true")
 	private boolean enabled;
 
@@ -91,14 +88,6 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
 	}
 
 	public boolean isEnabled() {

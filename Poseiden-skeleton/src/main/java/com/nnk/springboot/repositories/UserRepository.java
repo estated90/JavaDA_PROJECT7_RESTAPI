@@ -16,9 +16,5 @@ import com.nnk.springboot.domain.User;
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
     User findByUsername(String userName);
     User findByRole(String role);
-    
-    @Query("UPDATE User u SET u.lastLogin=:lastLogin WHERE u.username = ?#{ principal?.username }")
-    @Modifying
-    @Transactional
-    public void updateLastLogin(@Param("lastLogin") Date lastLogin);
+
 }

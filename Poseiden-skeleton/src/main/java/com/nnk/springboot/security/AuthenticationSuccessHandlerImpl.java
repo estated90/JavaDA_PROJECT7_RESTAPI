@@ -20,14 +20,11 @@ import com.nnk.springboot.repositories.UserRepository;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-	@Autowired
-	private UserRepository userRepository;
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		userRepository.updateLastLogin(new Date());
 		GrantedAuthority authority = authentication.getAuthorities().stream()
 				.filter(a -> a.getAuthority().equals("USER")).findAny().orElse(null);
 		// Very simple (most probably broken) check if the user is ADMIN or USER
