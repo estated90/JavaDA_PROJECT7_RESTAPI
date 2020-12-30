@@ -43,14 +43,14 @@ class UserServiceImplTest {
 
 	@Test
 	void testSavingUserDb() throws UserException {
-		User user = new User("test1", "test1", "test1", "USER");
+		User user = new User("test1", "Qwerty1@", "test1", "USER");
 		userService.saveUserDb(user);
 		List<User> listUser = userService.findAllUser();
 		assertEquals(1, listUser.size());
 		assertEquals("test1", listUser.get(0).getFullname());
 		assertNotNull(listUser.get(0).getId());
 		assertEquals("test1", listUser.get(0).getUsername());
-		assertTrue(passwordManager.passwordDecoder("test1", listUser.get(0).getPassword()));
+		assertTrue(passwordManager.passwordDecoder("Qwerty1@", listUser.get(0).getPassword()));
 		assertEquals("USER", listUser.get(0).getRole());
 		int userDb = userRepository.findByUsername("test1").getId();
 		userService.deleteUser(userDb);
@@ -65,10 +65,10 @@ class UserServiceImplTest {
 
 	@Test
 	void testUpdatingUserDb() throws UserException {
-		User user = new User("test2", "test2", "test2", "USER");
+		User user = new User("test2", "Qwerty1@", "test2", "USER");
 		userService.saveUserDb(user);
 		user.setFullname("test3");
-		user.setPassword("test3");
+		user.setPassword("Qwerty1@");
 		int userDb = userRepository.findByUsername("test2").getId();
 		userService.updateUserId(userDb, user);
 		User userData = userService.findById(userDb);

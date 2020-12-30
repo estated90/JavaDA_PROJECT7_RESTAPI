@@ -39,7 +39,7 @@ class RatingServiceImplTest {
 
     @Test
     @Order(1)
-    @DisplayName("Saving and deleting a user")
+    @DisplayName("Saving and deleting a rating")
     void testSavingUserDb() {
 	Rating rating = new Rating();
 	rating.setMoodysRating("test1");
@@ -67,7 +67,7 @@ class RatingServiceImplTest {
 
     @Test
     @Order(2)
-    @DisplayName("Saving and updating a user")
+    @DisplayName("Saving and updating a rating")
     void testUpdatingUserDb() {
 	Rating rating = new Rating();
 	rating.setMoodysRating("test1");

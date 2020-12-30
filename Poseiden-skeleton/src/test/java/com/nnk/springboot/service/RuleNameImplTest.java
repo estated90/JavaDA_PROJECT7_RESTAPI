@@ -40,7 +40,7 @@ class RuleNameImplTest {
 
     @Test
     @Order(1)
-    @DisplayName("Saving and deleting a user")
+    @DisplayName("Saving and deleting a rule")
     void testSavingUserDb() {
 	RuleName ruleName = new RuleName();
 	ruleName.setName("test1");
@@ -72,7 +72,7 @@ class RuleNameImplTest {
 
     @Test
     @Order(2)
-    @DisplayName("Saving and updating a user")
+    @DisplayName("Saving and updating a rule")
     void testUpdatingUserDb() {
 	RuleName ruleName = new RuleName();
 	ruleName.setName("test1");

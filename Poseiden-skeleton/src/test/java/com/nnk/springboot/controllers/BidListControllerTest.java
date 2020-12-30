@@ -1,11 +1,10 @@
 package com.nnk.springboot.controllers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,39 +12,30 @@ import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.interfaces.BidListService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = Application.class)
-@AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-test.properties")
 @ExtendWith(MockitoExtension.class)
-@TestMethodOrder(OrderAnnotation.class)
 class BidListControllerTest {
 
 	@Mock
 	private static BidListService bidListService;
+	@Mock
+	private BindingResult bindingResult;
 	@Autowired
-	private MockMvc mockMvc;
 	private BidList bidList;
+	@InjectMocks
+	private BidListController bidListController = new BidListController();
 
 	@BeforeAll
 	private static void init() {
@@ -61,17 +51,24 @@ class BidListControllerTest {
 	}
 
 	@Test
-	public void testListBidList() throws Exception {
-		this.mockMvc.perform(get("/bidList/list")).andExpect(status().isOk()).andExpect(view().name("bidList/list"));
-	}
-
-	@Test
 	public void testAddListBidList() throws Exception {
-		this.mockMvc.perform(get("/bidList/add")).andExpect(status().isOk()).andExpect(view().name("bidList/add"));
+		bidList.setAccount("test");
+		bidList.setType("type test");
+		bidList.setBidQuantity(20);
+		assertEquals("bidList/add", bidListController.addBidForm(bidList));
 	}
 
 	@Test
-	public void testPostListBidList() throws Exception {
+	public void testListBidList() throws Exception {
+		List<BidList> bidListReturned = new ArrayList<>();
+		when(bidListService.getAllBidList()).thenReturn(bidListReturned);
+		final Model model = new ExtendedModelMap();
+		assertEquals("bidList/list", bidListController.home(model));
+		assertNotNull(model.asMap().get("bidlists"));
+	}
+
+	@Test
+	public void testPostBidList() throws Exception {
 		bidList.setAccount("test");
 		bidList.setType("type test");
 		bidList.setBidQuantity(20);
@@ -79,16 +76,69 @@ class BidListControllerTest {
 		bidListReturned.add(bidList);
 		when(bidListService.saveBidListDb(any(BidList.class))).thenReturn(bidList);
 		when(bidListService.getAllBidList()).thenReturn(bidListReturned);
-		String bidListAsString = asJsonString(bidList);
-		this.mockMvc.perform(post("/bidList/validate").contentType(MediaType.APPLICATION_JSON).content(bidListAsString))
-				.andExpect(status().isOk()).andExpect(view().name("bidList/list"));
+		when(bindingResult.hasErrors()).thenReturn(false);
+		final Model model = new ExtendedModelMap();
+		bidListController.validate(bidList, bindingResult, model);
+		assertNotNull(model.asMap().get("bidlist"));
+		assertEquals("redirect:/bidList/list", bidListController.validate(bidList, bindingResult, model));
 	}
-
-	public static String asJsonString(final Object obj) {
-		try {
-			return new ObjectMapper().writeValueAsString(obj);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	
+	@Test
+	public void testPostBidListError() throws Exception {
+		when(bindingResult.hasErrors()).thenReturn(true);
+		final Model model = new ExtendedModelMap();
+		bidListController.validate(bidList, bindingResult, model);
+		assertNotNull(model.asMap().get("errors"));
+		assertNull(model.asMap().get("bidList"));
+		assertEquals("bidList/add", bidListController.validate(bidList, bindingResult, model));
+	}
+	
+	@Test
+	public void testUpdateBidList() throws Exception {
+		bidList.setBidListId(1);
+		bidList.setAccount("test");
+		bidList.setType("type test");
+		bidList.setBidQuantity(20);
+		when(bidListService.findById(any())).thenReturn(bidList);
+		final Model model = new ExtendedModelMap();
+		bidListController.showUpdateForm(1, model);
+		assertNotNull(model.asMap().get("bidList"));
+		assertEquals("bidList/update", bidListController.showUpdateForm(1, model));
+	}
+	
+	@Test
+	public void testPutBidList() throws Exception {
+		bidList.setBidListId(1);
+		bidList.setAccount("test");
+		bidList.setType("type test");
+		bidList.setBidQuantity(20);
+		when(bidListService.findById(any())).thenReturn(bidList);
+		when(bindingResult.hasErrors()).thenReturn(false);
+		final Model model = new ExtendedModelMap();
+		bidListController.updateBid(1, bidList, bindingResult, model);
+		assertNotNull(model.asMap().get("bidlists"));
+		assertEquals("redirect:/bidList/list", bidListController.updateBid(1, bidList, bindingResult, model));
+	}
+	
+	@Test
+	public void testPUtBidListError() throws Exception {
+		when(bindingResult.hasErrors()).thenReturn(true);
+		final Model model = new ExtendedModelMap();
+		bidListController.updateBid(1, bidList, bindingResult, model);
+		assertNotNull(model.asMap().get("errors"));
+		assertNull(model.asMap().get("bidLists"));
+		assertEquals("bidList/update", bidListController.updateBid(1, bidList, bindingResult, model));
+	}
+	
+	@Test
+	public void testDeleteBidList() throws Exception {
+		bidList.setBidListId(1);
+		bidList.setAccount("test");
+		bidList.setType("type test");
+		bidList.setBidQuantity(20);
+		final Model model = new ExtendedModelMap();
+		bidListController.deleteBid(1, model);
+		assertNotNull(model.asMap().get("bidlists"));
+		assertEquals("redirect:/bidList/list", bidListController.deleteBid(1, model));
 	}
 }

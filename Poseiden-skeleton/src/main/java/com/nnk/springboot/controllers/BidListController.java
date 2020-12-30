@@ -63,6 +63,7 @@ public class BidListController {
 		logger.info("Updating bids : {} with id : {}", bidList, id);
 		if (result.hasErrors()) {
 			logger.info("bids was not valid : {} with id : {}", bidList, id);
+			model.addAttribute("errors",result.getAllErrors());
 			return "bidList/update";
 		}
 		bidListService.updateBidList(id, bidList);
