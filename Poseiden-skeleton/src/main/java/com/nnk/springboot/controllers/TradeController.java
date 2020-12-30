@@ -31,7 +31,7 @@ public class TradeController {
 	}
 
 	@GetMapping("/trade/add")
-	public String addUser(Trade bid) {
+	public String addTrade(Trade bid) {
 		return "trade/add";
 	}
 
@@ -40,10 +40,11 @@ public class TradeController {
 		logger.info("Creation of the trade: {}", trade);
 		if (result.hasErrors()) {
 			logger.error("trade data was not valid : {}", trade);
+			model.addAttribute("errors",result.getAllErrors());
 			return "trade/add";
 		}
 		tradeService.saveTradeDb(trade);
-		model.addAttribute("trade", tradeService.getAllTrade());
+		model.addAttribute("trades", tradeService.getAllTrade());
 		logger.info("{} has been created in the db", trade);
 		return "redirect:/trade/list";
 	}
@@ -62,10 +63,11 @@ public class TradeController {
 		logger.info("Updating trade : {} with id : {}", trade, id);
 		if (result.hasErrors()) {
 			logger.info("trade was not valid : {} with id : {}", trade, id);
+			model.addAttribute("errors",result.getAllErrors());
 			return "trade/update";
 		}
 		tradeService.updateTrade(id, trade);
-		model.addAttribute("trade", tradeService.getAllTrade());
+		model.addAttribute("trades", tradeService.getAllTrade());
 		logger.info("trade was udpated");
 		return "redirect:/trade/list";
 	}
@@ -74,7 +76,7 @@ public class TradeController {
 	public String deleteTrade(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting trade with id : {}", id);
 		tradeService.deleteTrade(id);
-		model.addAttribute("ruleName", tradeService.getAllTrade());
+		model.addAttribute("trades", tradeService.getAllTrade());
 		logger.info("trade was deleted");
 		return "redirect:/trade/list";
 	}

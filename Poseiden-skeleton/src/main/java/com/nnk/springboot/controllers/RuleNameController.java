@@ -40,12 +40,13 @@ public class RuleNameController {
 		logger.info("Creation of the rule name : {}", ruleName);
 		if (result.hasErrors()) {
 			logger.error("rule name data was not valid : {}", ruleName);
+			model.addAttribute("errors",result.getAllErrors());
 			return "ruleName/add";
 		}
 		ruleNameService.saveRuleNameDb(ruleName);
 		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
 		logger.info("{} has been created in the db", ruleName);
-		return "redirect:/ruleName/add";
+		return "redirect:/ruleName/list";
 	}
 
 	@GetMapping("/ruleName/update/{id}")
@@ -63,6 +64,7 @@ public class RuleNameController {
 		logger.info("Updating rule name : {} with id : {}", ruleName, id);
 		if (result.hasErrors()) {
 			logger.info("rule name was not valid : {} with id : {}", ruleName, id);
+			model.addAttribute("errors",result.getAllErrors());
 			return "ruleName/update";
 		}
 		ruleNameService.updateRuleName(id, ruleName);

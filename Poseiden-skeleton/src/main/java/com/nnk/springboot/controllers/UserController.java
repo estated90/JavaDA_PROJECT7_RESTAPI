@@ -40,6 +40,7 @@ public class UserController {
 		logger.info("Creation of the user : {}", user);
 		if (result.hasErrors()) {
 			logger.error("User data was not valid : {}", user);
+			model.addAttribute("errors",result.getAllErrors());
 			return "user/add";
 		}
 		userService.saveUserDb(user);
@@ -62,6 +63,7 @@ public class UserController {
 		logger.info("Updating user : {} with id : {}", user, id);
 		if (result.hasErrors()) {
 			logger.info("User was not valid : {} with id : {}", user, id);
+			model.addAttribute("errors",result.getAllErrors());
 			return "user/update";
 		}
 		userService.updateUserId(id, user);

@@ -40,6 +40,7 @@ public class RatingController {
 		logger.info("Creation of the rating : {}", rating);
 		if (result.hasErrors()) {
 			logger.error("rating data was not valid : {}", rating);
+			model.addAttribute("errors",result.getAllErrors());
 			return "rating/add";
 		}
 		ratingService.saveRatingrDb(rating);
@@ -63,6 +64,7 @@ public class RatingController {
 		logger.info("Updating rating : {} with id : {}", rating, id);
 		if (result.hasErrors()) {
 			logger.info("rating was not valid : {} with id : {}", rating, id);
+			model.addAttribute("errors",result.getAllErrors());
 			return "rating/update";
 		}
 		ratingService.updateRating(id, rating);

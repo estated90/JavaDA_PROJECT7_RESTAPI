@@ -31,7 +31,7 @@ public class CurveController {
 	}
 
 	@GetMapping("/curvePoint/add")
-	public String addBidForm(CurvePoint bid) {
+	public String addCurveForm(CurvePoint bid) {
 		return "curvePoint/add";
 	}
 
@@ -40,6 +40,7 @@ public class CurveController {
 		logger.info("Creation of the curve point : {}", curvePoint);
 		if (result.hasErrors()) {
 			logger.error("curve point data was not valid : {}", curvePoint);
+			model.addAttribute("errors",result.getAllErrors());
 			return "curvePoint/add";
 		}
 		curveService.saveCurvePointDb(curvePoint);
@@ -58,11 +59,12 @@ public class CurveController {
 	}
 
 	@PostMapping("/curvePoint/update/{id}")
-	public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result,
+	public String updateCurve(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result,
 			Model model) {
 		logger.info("Updating curve point : {} with id : {}", curvePoint, id);
 		if (result.hasErrors()) {
 			logger.info("curve point was not valid : {} with id : {}", curvePoint, id);
+			model.addAttribute("errors",result.getAllErrors());
 			return "curvePoint/update";
 		}
 		curveService.updateCurvePoint(id, curvePoint);
@@ -72,7 +74,7 @@ public class CurveController {
 	}
 
 	@GetMapping("/curvePoint/delete/{id}")
-	public String deleteBid(@PathVariable("id") Integer id, Model model) {
+	public String deleteCurve(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting curve point with id : {}", id);
 		curveService.deletCurvePoint(id);
 		model.addAttribute("curve", curveService.getAllCurvePoint());
