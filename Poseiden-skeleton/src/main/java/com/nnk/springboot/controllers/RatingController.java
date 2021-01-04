@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.interfaces.RatingService;
@@ -22,11 +21,13 @@ public class RatingController {
 	private static final Logger logger = LogManager.getLogger("RatingController");
 	@Autowired
 	private RatingService ratingService;
+	private static final String RATINGS = "ratings";
+	private static final String REDIRECT = "redirect:/rating/list";
 
-	@RequestMapping("/rating/list")
+	@GetMapping("/rating/list")
 	public String home(Model model) {
 		logger.info("Getting all rating of DB");
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		return "rating/list";
 	}
 
@@ -44,9 +45,9 @@ public class RatingController {
 			return "rating/add";
 		}
 		ratingService.saveRatingrDb(rating);
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		logger.info("{} has been created in the db", rating);
-		return "redirect:/rating/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/rating/update/{id}")
@@ -68,17 +69,17 @@ public class RatingController {
 			return "rating/update";
 		}
 		ratingService.updateRating(id, rating);
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		logger.info("rating was udpated");
-		return "redirect:/rating/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rating with id : {}", id);
 		ratingService.deletRating(id);
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		logger.info("rating was deleted");
-		return "redirect:/rating/list";
+		return REDIRECT;
 	}
 }

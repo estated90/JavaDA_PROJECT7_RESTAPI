@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.interfaces.TradeService;
@@ -22,11 +21,13 @@ public class TradeController {
 	private static final Logger logger = LogManager.getLogger("TradeController");
 	@Autowired
 	private TradeService tradeService;
+	private static final String TRADES = "trades";
+	private static final String REDIRECT = "redirect:/trade/list";
 
-	@RequestMapping("/trade/list")
+	@GetMapping("/trade/list")
 	public String home(Model model) {
 		logger.info("Getting all trade of DB");
-		model.addAttribute("trades", tradeService.getAllTrade());
+		model.addAttribute(TRADES, tradeService.getAllTrade());
 		return "trade/list";
 	}
 
@@ -44,9 +45,9 @@ public class TradeController {
 			return "trade/add";
 		}
 		tradeService.saveTradeDb(trade);
-		model.addAttribute("trades", tradeService.getAllTrade());
+		model.addAttribute(TRADES, tradeService.getAllTrade());
 		logger.info("{} has been created in the db", trade);
-		return "redirect:/trade/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/trade/update/{id}")
@@ -67,17 +68,17 @@ public class TradeController {
 			return "trade/update";
 		}
 		tradeService.updateTrade(id, trade);
-		model.addAttribute("trades", tradeService.getAllTrade());
+		model.addAttribute(TRADES, tradeService.getAllTrade());
 		logger.info("trade was udpated");
-		return "redirect:/trade/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/trade/delete/{id}")
 	public String deleteTrade(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting trade with id : {}", id);
 		tradeService.deleteTrade(id);
-		model.addAttribute("trades", tradeService.getAllTrade());
+		model.addAttribute(TRADES, tradeService.getAllTrade());
 		logger.info("trade was deleted");
-		return "redirect:/trade/list";
+		return REDIRECT;
 	}
 }

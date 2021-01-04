@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.interfaces.BidListService;
@@ -22,11 +21,13 @@ public class BidListController {
 	private static final Logger logger = LogManager.getLogger("BidListController");
 	@Autowired
 	private BidListService bidListService;
-
-	@RequestMapping("/bidList/list")
+	private static final String BIDLISTS = "bidlists";
+	private static final String REDIRECT = "redirect:/bidList/list";
+	
+	@GetMapping("/bidList/list")
 	public String home(Model model) {
 		logger.info("Getting all bids of DB");
-		model.addAttribute("bidlists", bidListService.getAllBidList());
+		model.addAttribute(BIDLISTS, bidListService.getAllBidList());
 		return "bidList/list";
 	}
 
@@ -46,7 +47,7 @@ public class BidListController {
 		bidListService.saveBidListDb(bid);
 		model.addAttribute("bidlist", bidListService.getAllBidList());
 		logger.info("{} has been created in the db", bid);
-		return "redirect:/bidList/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/bidList/update/{id}")
@@ -67,17 +68,17 @@ public class BidListController {
 			return "bidList/update";
 		}
 		bidListService.updateBidList(id, bidList);
-		model.addAttribute("bidlists", bidListService.findById(id));
+		model.addAttribute(BIDLISTS, bidListService.findById(id));
 		logger.info("bids was udpated");
-		return "redirect:/bidList/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/bidList/delete/{id}")
 	public String deleteBid(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting bids with id : {}", id);
 		bidListService.deletBidList(id);
-		model.addAttribute("bidlists", bidListService.getAllBidList());
+		model.addAttribute(BIDLISTS, bidListService.getAllBidList());
 		logger.info("bids was deleted");
-		return "redirect:/bidList/list";
+		return REDIRECT;
 	}
 }

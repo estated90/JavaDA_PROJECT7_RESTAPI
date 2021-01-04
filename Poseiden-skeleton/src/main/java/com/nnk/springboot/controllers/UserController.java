@@ -22,11 +22,13 @@ public class UserController {
 	private static final Logger logger = LogManager.getLogger("UserController");
 	@Autowired
 	private UserService userService;
+	private static final String USERS = "users";
+	private static final String REDIRECT = "redirect:/user/list";
 
 	@GetMapping("/user/list")
 	public String home(Model model) {
 		logger.info("Getting all user of DB");
-		model.addAttribute("users", userService.findAllUser());
+		model.addAttribute(USERS, userService.findAllUser());
 		return "user/list";
 	}
 
@@ -44,9 +46,9 @@ public class UserController {
 			return "user/add";
 		}
 		userService.saveUserDb(user);
-		model.addAttribute("users", userService.findAllUser());
+		model.addAttribute(USERS, userService.findAllUser());
 		logger.info("{} has been created in the db", user);
-		return "redirect:/user/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/user/update/{id}")
@@ -67,17 +69,17 @@ public class UserController {
 			return "user/update";
 		}
 		userService.updateUserId(id, user);
-		model.addAttribute("users", userService.findAllUser());
+		model.addAttribute(USERS, userService.findAllUser());
 		logger.info("User was udpated");
-		return "redirect:/user/list";
+		return REDIRECT;
 	}
 
 	@GetMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting user with id : {}", id);
 		userService.deleteUser(id);
-		model.addAttribute("users", userService.findAllUser());
+		model.addAttribute(USERS, userService.findAllUser());
 		logger.info("User was deleted");
-		return "redirect:/user/list";
+		return REDIRECT;
 	}
 }
