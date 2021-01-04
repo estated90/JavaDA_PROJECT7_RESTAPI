@@ -13,59 +13,57 @@ import com.nnk.springboot.domain.User;
 public class MyUserPrincipal implements UserDetails {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	
-	private User user;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    private User user;
 
     public MyUserPrincipal(User user) {
-        this.setUser(user);
+	this.setUser(user);
     }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+	return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+	this.user = user;
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-        final List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+user.getRole()));
-        return authorities;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+	return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+    }
 
-	@Override
-	public String getPassword() {
-        return user.getPassword();
-	}
+    @Override
+    public String getPassword() {
+	return user.getPassword();
+    }
 
-	@Override
-	public String getUsername() {
-		 return user.getUsername();
-	}
+    @Override
+    public String getUsername() {
+	return user.getUsername();
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+	return true;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+	return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+	return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return user.isEnabled();
-	}
-	
+    @Override
+    public boolean isEnabled() {
+	return user.isEnabled();
+    }
+
 }

@@ -15,30 +15,30 @@ import org.springframework.ui.Model;
 @ExtendWith(MockitoExtension.class)
 class HomeControllerTest {
 
-	@InjectMocks
-	private HomeController homeController = new HomeController();
+    @InjectMocks
+    private HomeController homeController = new HomeController();
 
-	@BeforeAll
-	private static void init() {
-	}
+    @BeforeAll
+    private static void init() {
+    }
 
-	@BeforeEach
-	private void setUpPerTest() {
-	}
+    @BeforeEach
+    private void setUpPerTest() {
+    }
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+    }
 
-	@Test
-	public void testHome() throws Exception {
-		final Model model = new ExtendedModelMap();
-		assertEquals("home", homeController.home(model));
-	}
-	
-	@Test
-	public void testHomeAdmin() throws Exception {
-		final Model model = new ExtendedModelMap();
-		assertEquals("redirect:/bidList/list", homeController.adminHome(model));
-	}
+    @Test
+    void testHome() throws Exception {
+	final Model model = new ExtendedModelMap();
+	assertEquals("home", homeController.home(model));
+    }
+
+    @Test
+    void testHomeAdmin() throws Exception {
+	final Model model = new ExtendedModelMap();
+	assertEquals("redirect:/bidList/list", homeController.adminHome(model));
+    }
 }

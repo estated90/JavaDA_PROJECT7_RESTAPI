@@ -61,7 +61,6 @@ public class Trade {
     private String side;
 
     public Trade() {
-	// TODO Auto-generated constructor stub
     }
 
     /**

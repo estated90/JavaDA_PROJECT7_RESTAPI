@@ -5,6 +5,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserUtils {
 
+    private UserUtils () {
+	throw new IllegalStateException("Utility class");
+    }
+    
     public static String getAuthenticatedUserName() {
         Authentication auth = SecurityContextHolder.getContext()
             .getAuthentication();
