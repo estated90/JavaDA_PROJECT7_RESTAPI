@@ -7,15 +7,15 @@ package com.nnk.springboot.interfaces;
 public interface PasswordManager {
 
 	/**
-	 * @param passwordToEncode
-	 * @return
+	 * @param passwordToEncode password to encode then store in DB
+	 * @return the encrypted password
 	 */
 	String passwordEncoder(String passwordToEncode);
 
 	/**
-	 * @param password
-	 * @param encodedPassword
-	 * @return
+	 * @param password sent by user
+	 * @param encodedPassword encrypted in DB
+	 * @return boolean to assess the given and stored are the same
 	 */
 	boolean passwordDecoder(String password, String encodedPassword);
 

@@ -26,6 +26,7 @@ public class Rating {
 	private int orderNumber;
 
 	public Rating() {
+		super();
 	}
 
 	/**

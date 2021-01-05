@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,11 @@ import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "Users")
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -29,10 +35,10 @@ public class User {
 	private boolean enabled;
 
 	/**
-	 * @param username
-	 * @param password
-	 * @param fullname
-	 * @param role
+	 * @param username of the user
+	 * @param password created by user
+	 * @param fullname of the user
+	 * @param role of the user to access data
 	 */
 
 	public User(String username, String password, String fullname, String role) {

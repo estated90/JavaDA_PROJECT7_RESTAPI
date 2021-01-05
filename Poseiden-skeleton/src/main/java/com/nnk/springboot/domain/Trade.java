@@ -61,6 +61,7 @@ public class Trade {
     private String side;
 
     public Trade() {
+    	super();
     }
 
     /**
