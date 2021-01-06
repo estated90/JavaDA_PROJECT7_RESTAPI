@@ -46,10 +46,11 @@ public class UserController {
 	}
 
 	/**
-	 * @param bid as an object
+	 * @param user as an object
 	 * @param result control validity object
 	 * @param model to add from
 	 * @return the link of page
+	 * @throws UserException Exception related to user not found
 	 */
 	@PostMapping("/user/validate")
 	public String validate(@Valid User user, BindingResult result, Model model) throws UserException {
@@ -81,9 +82,10 @@ public class UserController {
 
 	/**
 	 * @param id of the bid as int
-	 * @param bidList as an object
+	 * @param user as an object
 	 * @param result control validity object
 	 * @param model to add from
+	 * @throws UserException Exception related to user not found
 	 * @return the link of page
 	 */
 	@PostMapping("/user/update/{id}")

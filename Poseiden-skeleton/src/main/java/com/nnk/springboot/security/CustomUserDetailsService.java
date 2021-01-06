@@ -12,6 +12,10 @@ import org.springframework.web.context.WebApplicationContext;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
+/**
+ * @author nicolas
+ *<p>Will process the customs user details of a connection</p>
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

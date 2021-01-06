@@ -13,6 +13,10 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author nicolas
+ * <p>Will process the authentification if Successful. Redirect user to correct page</p>
+ */
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 

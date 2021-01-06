@@ -40,7 +40,7 @@ public class RatingController {
 	}
 
 	/**
-	 * @param bid as an object
+	 * @param rating as an object
 	 * @return the link of page
 	 */
 	@GetMapping("/rating/add")
@@ -49,7 +49,7 @@ public class RatingController {
 	}
 
 	/**
-	 * @param bid as an object
+	 * @param rating as an object
 	 * @param result control validity object
 	 * @param model to add from
 	 * @return the link of page
@@ -84,7 +84,7 @@ public class RatingController {
 
 	/**
 	 * @param id of the bid as int
-	 * @param bidList as an object
+	 * @param rating as an object
 	 * @param result control validity object
 	 * @param model to add from
 	 * @return the link of page

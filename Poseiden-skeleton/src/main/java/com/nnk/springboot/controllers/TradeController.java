@@ -49,7 +49,7 @@ public class TradeController {
 	}
 
 	/**
-	 * @param bid as an object
+	 * @param trade as an object
 	 * @param result control validity object
 	 * @param model to add from
 	 * @return the link of page
@@ -84,7 +84,7 @@ public class TradeController {
 
 	/**
 	 * @param id of the bid as int
-	 * @param bidList as an object
+	 * @param trade as an object
 	 * @param result control validity object
 	 * @param model to add from
 	 * @return the link of page

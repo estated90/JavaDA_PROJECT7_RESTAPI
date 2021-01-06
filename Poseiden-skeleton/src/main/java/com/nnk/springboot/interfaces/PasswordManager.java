@@ -1,7 +1,7 @@
 package com.nnk.springboot.interfaces;
 
 /**
- * @author nicol
+ * @author nicolas
  *
  */
 public interface PasswordManager {
@@ -19,6 +19,10 @@ public interface PasswordManager {
 	 */
 	boolean passwordDecoder(String password, String encodedPassword);
 
+	/**
+	 * @param password without encryption
+	 * @return boolean to valid if the password has at least 8 characters, 1 upper case, 1 lower case and 1 special character
+	 */
 	boolean isValidPassword(String password);
 
 }

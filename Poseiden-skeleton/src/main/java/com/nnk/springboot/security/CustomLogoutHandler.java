@@ -11,6 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author nicolas
+ * <p>Will process the logout if Successful. Redirect user to correct page</p>
+ *
+ */
 @Component("myLogoutSuccessHandler")
 public class CustomLogoutHandler implements LogoutSuccessHandler {
 
