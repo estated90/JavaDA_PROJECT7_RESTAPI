@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.interfaces.TradeService;
 
+/**
+ * @author nicol
+ * <p>Controller CRUD to access the Trade data</p>
+ */
 @Controller
 public class TradeController {
 
@@ -24,6 +28,10 @@ public class TradeController {
 	private static final String TRADES = "trades";
 	private static final String REDIRECT = "redirect:/trade/list";
 
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/trade/list")
 	public String home(Model model) {
 		logger.info("Getting all trade of DB");
@@ -31,11 +39,21 @@ public class TradeController {
 		return "trade/list";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/trade/add")
 	public String addTrade(Trade bid) {
 		return "trade/add";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/trade/validate")
 	public String validate(@Valid Trade trade, BindingResult result, Model model) {
 		logger.info("Creation of the trade: {}", trade);
@@ -50,6 +68,11 @@ public class TradeController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/trade/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting trade with id : {}", id);
@@ -59,6 +82,13 @@ public class TradeController {
 		return "trade/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param bidList as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/trade/update/{id}")
 	public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model) {
 		logger.info("Updating trade : {} with id : {}", trade, id);
@@ -73,6 +103,11 @@ public class TradeController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/trade/delete/{id}")
 	public String deleteTrade(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting trade with id : {}", id);

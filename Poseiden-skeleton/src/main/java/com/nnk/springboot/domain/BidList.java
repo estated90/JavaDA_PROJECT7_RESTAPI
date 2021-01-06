@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
 @Table(name = "BidList")
 public class BidList {

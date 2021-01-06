@@ -3,6 +3,10 @@ package com.nnk.springboot.domain;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+/**
+ * @author nicol
+ *
+ */
 public class UserUtils {
 
     private UserUtils () {

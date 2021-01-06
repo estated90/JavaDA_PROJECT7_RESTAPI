@@ -31,7 +31,6 @@ public class HomeController {
 
 	
 	/**
-	 *
 	 * @param model from thymeleaf
 	 * @return link to redirect to home page
 	 */

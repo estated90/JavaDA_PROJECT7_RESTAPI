@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
 @Table(name = "CurvePoint")
 public class CurvePoint {

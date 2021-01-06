@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
 @Table(name = "Rating")
 public class Rating {

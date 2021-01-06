@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.interfaces.RuleNameService;
 
+/**
+ * @author nicolas
+ * <p>Controller CRUD to access the Rules data</p>
+ */
 @Controller
 public class RuleNameController {
 
@@ -24,6 +28,10 @@ public class RuleNameController {
 	private static final String RULENAMES = "ruleNames";
 	private static final String REDIRECT = "redirect:/ruleName/list";
 
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/list")
 	public String home(Model model) {
 		logger.info("Getting all rule name of DB");
@@ -31,11 +39,21 @@ public class RuleNameController {
 		return "ruleName/list";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/add")
 	public String addRuleForm(RuleName bid) {
 		return "ruleName/add";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/ruleName/validate")
 	public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
 		logger.info("Creation of the rule name : {}", ruleName);
@@ -50,6 +68,11 @@ public class RuleNameController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting rule name with id : {}", id);
@@ -59,6 +82,13 @@ public class RuleNameController {
 		return "ruleName/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param bidList as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/ruleName/update/{id}")
 	public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result,
 			Model model) {
@@ -74,6 +104,11 @@ public class RuleNameController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/delete/{id}")
 	public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rule name with id : {}", id);

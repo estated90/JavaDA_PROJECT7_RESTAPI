@@ -25,6 +25,10 @@ public class UserController {
 	private static final String USERS = "users";
 	private static final String REDIRECT = "redirect:/user/list";
 
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/user/list")
 	public String home(Model model) {
 		logger.info("Getting all user of DB");
@@ -32,11 +36,21 @@ public class UserController {
 		return "user/list";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/user/add")
 	public String addUser(User bid) {
 		return "user/add";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/user/validate")
 	public String validate(@Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Creation of the user : {}", user);
@@ -51,6 +65,11 @@ public class UserController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/user/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting user with id : {}", id);
@@ -60,6 +79,13 @@ public class UserController {
 		return "user/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param bidList as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/user/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) throws UserException {
 		logger.info("Updating user : {} with id : {}", user, id);
@@ -74,6 +100,11 @@ public class UserController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting user with id : {}", id);

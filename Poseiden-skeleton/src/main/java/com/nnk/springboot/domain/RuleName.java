@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
 @Table(name = "RuleName")
 public class RuleName {

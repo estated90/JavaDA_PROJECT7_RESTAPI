@@ -12,6 +12,10 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.ColumnDefault;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
 @Table(name = "Users")
 public class User implements Serializable {

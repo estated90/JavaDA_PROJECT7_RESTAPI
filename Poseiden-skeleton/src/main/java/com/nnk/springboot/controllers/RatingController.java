@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.interfaces.RatingService;
 
+/**
+ * @author nicolas
+ * <p>Controller CRUD to access the Rating data</p>
+ */
 @Controller
 public class RatingController {
 
@@ -24,6 +28,10 @@ public class RatingController {
 	private static final String RATINGS = "ratings";
 	private static final String REDIRECT = "redirect:/rating/list";
 
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/list")
 	public String home(Model model) {
 		logger.info("Getting all rating of DB");
@@ -31,11 +39,21 @@ public class RatingController {
 		return "rating/list";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/add")
 	public String addRatingForm(Rating rating) {
 		return "rating/add";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/rating/validate")
 	public String validate(@Valid Rating rating, BindingResult result, Model model) {
 		logger.info("Creation of the rating : {}", rating);
@@ -50,6 +68,11 @@ public class RatingController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting rating with id : {}", id);
@@ -59,6 +82,13 @@ public class RatingController {
 		return "rating/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param bidList as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/rating/update/{id}")
 	public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating, BindingResult result,
 			Model model) {
@@ -74,6 +104,11 @@ public class RatingController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rating with id : {}", id);

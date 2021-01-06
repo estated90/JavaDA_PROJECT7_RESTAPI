@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.interfaces.CurvePointService;
 
+/**
+ * @author nicolas
+ * <p>Controller CRUD to access the curve data</p>
+ *
+ */
 @Controller
 public class CurveController {
 
@@ -24,6 +29,10 @@ public class CurveController {
 	private static final String CURVE = "curve";
 	private static final String REDIRECT = "redirect:/curvePoint/list";
 
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/curvePoint/list")
 	public String home(Model model) {
 		logger.info("Getting all curve point of DB");
@@ -31,11 +40,21 @@ public class CurveController {
 		return "curvePoint/list";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/curvePoint/add")
 	public String addCurveForm(CurvePoint bid) {
 		return "curvePoint/add";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/curvePoint/validate")
 	public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
 		logger.info("Creation of the curve point : {}", curvePoint);
@@ -50,6 +69,11 @@ public class CurveController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/curvePoint/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting curve point with id : {}", id);
@@ -59,6 +83,13 @@ public class CurveController {
 		return "curvePoint/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param bidList as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/curvePoint/update/{id}")
 	public String updateCurve(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result,
 			Model model) {
@@ -74,6 +105,11 @@ public class CurveController {
 		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/curvePoint/delete/{id}")
 	public String deleteCurve(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting curve point with id : {}", id);
