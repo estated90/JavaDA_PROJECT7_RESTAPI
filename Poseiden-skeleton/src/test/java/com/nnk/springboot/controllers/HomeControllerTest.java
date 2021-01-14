@@ -9,10 +9,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
+import com.nnk.springboot.Application;
+import com.nnk.springboot.configuration.SpringSecurityWebAuxTestConfig;
+
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = { Application.class,
+		SpringSecurityWebAuxTestConfig.class })
 class HomeControllerTest {
 
     @InjectMocks
@@ -31,14 +38,16 @@ class HomeControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user1", password = "pwd", roles = "ADMIN")
     void testHome() throws Exception {
 	final Model model = new ExtendedModelMap();
-	assertEquals("home", homeController.home(model));
+	assertEquals("redirect:/bidList/list", homeController.home(model));
     }
 
     @Test
+    @WithMockUser(username = "user1", password = "pwd", roles = "USER")
     void testHomeAdmin() throws Exception {
 	final Model model = new ExtendedModelMap();
-	assertEquals("redirect:/bidList/list", homeController.adminHome(model));
+	assertEquals("home", homeController.adminHome(model));
     }
 }
