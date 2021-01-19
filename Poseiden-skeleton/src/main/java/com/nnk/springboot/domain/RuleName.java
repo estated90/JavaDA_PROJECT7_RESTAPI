@@ -8,8 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
-@Table(name = "RuleName")
+@Table(name = "rulename")
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

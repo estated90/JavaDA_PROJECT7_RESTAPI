@@ -8,6 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.repositories.UserRepository;
 
+/**
+ * @author nicol
+ * <p>Controller CRUD to access the Rules data</p>
+ */
 @Controller
 @RequestMapping("app")
 public class LoginController {
@@ -15,6 +19,9 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * @return the login page to the application
+     */
     @GetMapping("login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -22,6 +29,9 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * @return the user page
+     */
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
@@ -30,6 +40,9 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * @return the error page when access is denied
+     */
     @GetMapping("error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();

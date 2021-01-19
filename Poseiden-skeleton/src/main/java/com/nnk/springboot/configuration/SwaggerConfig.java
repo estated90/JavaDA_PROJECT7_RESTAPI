@@ -12,6 +12,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
+ * <p>
+ * Configuration to have the Swagger documentation for APIs
+ * </p>
+ * 
  * @author nicolas
  *
  */
@@ -20,26 +24,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 	
 	/**
-	 * 
+	 * <p>Creation of the docket for documentation</p>
+	 * @return Docket
 	 */
-	public static final String TAG_1 = "tag1";
-	
-    /**
-     * @return Docket
-     */
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.nnk.springboot.controller"))
-                .paths(PathSelectors.any())
-                .build()              
-                .apiInfo(apiInfo());        
-    }
-    /**
-     * @return ApiInfo
-     */
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("API nnk").version("1.0.0").build();
-    }
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("com.nnk.springboot.controller")).paths(PathSelectors.any())
+				.build().apiInfo(apiInfo());
+	}
+
+	/**
+	 * <p>Main info of the documentation</p>
+	 * @return ApiInfo
+	 */
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("API nnk").version("1.0.0").build();
+	}
 }

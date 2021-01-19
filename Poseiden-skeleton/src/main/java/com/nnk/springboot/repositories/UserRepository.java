@@ -1,24 +1,26 @@
 package com.nnk.springboot.repositories;
 
-import java.util.Date;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nnk.springboot.domain.User;
 
 
 
+/**
+ * @author nicolas
+ *
+ */
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
+    /**
+     * @param userName User name of user in DB
+     * @return the user as object
+     */
     User findByUsername(String userName);
+    /**
+     * @param role Role of the user in DB
+     * @return the user as object
+     */
     User findByRole(String role);
-    
-    @Query("UPDATE User u SET u.lastLogin=:lastLogin WHERE u.username = ?#{ principal?.username }")
-    @Modifying
-    @Transactional
-    public void updateLastLogin(@Param("lastLogin") Date lastLogin);
+
 }

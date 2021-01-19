@@ -1,6 +1,6 @@
 package com.nnk.springboot.domain;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,30 +12,37 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.ColumnDefault;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "users")
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@NotBlank(message = "Username is mandatory")
 	@Column(name = "username", unique = true)
 	private String username;
-	@NotBlank(message = "Password is mandatory")
+	@NotBlank(message = "Password must have at least 8 characters, 1 Upper and lower case and 1 special character")
 	private String password;
 	@NotBlank(message = "FullName is mandatory")
 	private String fullname;
 	@NotBlank(message = "Role is mandatory")
 	private String role;
-	private Date lastLogin;
 	@ColumnDefault("true")
 	private boolean enabled;
 
 	/**
-	 * @param username
-	 * @param password
-	 * @param fullname
-	 * @param role
+	 * @param username of the user
+	 * @param password created by user
+	 * @param fullname of the user
+	 * @param role of the user to access data
 	 */
 
 	public User(String username, String password, String fullname, String role) {
@@ -91,14 +98,6 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
 	}
 
 	public boolean isEnabled() {

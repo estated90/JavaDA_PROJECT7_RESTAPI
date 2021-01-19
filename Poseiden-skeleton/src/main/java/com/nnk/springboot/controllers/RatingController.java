@@ -11,30 +11,49 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.interfaces.RatingService;
 
+/**
+ * @author nicolas
+ * <p>Controller CRUD to access the Rating data</p>
+ */
 @Controller
 public class RatingController {
 
 	private static final Logger logger = LogManager.getLogger("RatingController");
 	@Autowired
 	private RatingService ratingService;
+	private static final String RATINGS = "ratings";
+	private static final String REDIRECT = "redirect:/rating/list";
 
-	@RequestMapping("/rating/list")
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
+	@GetMapping("/rating/list")
 	public String home(Model model) {
 		logger.info("Getting all rating of DB");
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		return "rating/list";
 	}
 
+	/**
+	 * @param rating as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/add")
 	public String addRatingForm(Rating rating) {
 		return "rating/add";
 	}
 
+	/**
+	 * @param rating as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/rating/validate")
 	public String validate(@Valid Rating rating, BindingResult result, Model model) {
 		logger.info("Creation of the rating : {}", rating);
@@ -44,11 +63,16 @@ public class RatingController {
 			return "rating/add";
 		}
 		ratingService.saveRatingrDb(rating);
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		logger.info("{} has been created in the db", rating);
-		return "redirect:/rating/list";
+		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting rating with id : {}", id);
@@ -58,6 +82,13 @@ public class RatingController {
 		return "rating/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param rating as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/rating/update/{id}")
 	public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating, BindingResult result,
 			Model model) {
@@ -68,17 +99,22 @@ public class RatingController {
 			return "rating/update";
 		}
 		ratingService.updateRating(id, rating);
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		logger.info("rating was udpated");
-		return "redirect:/rating/list";
+		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rating with id : {}", id);
 		ratingService.deletRating(id);
-		model.addAttribute("ratings", ratingService.getAllRating());
+		model.addAttribute(RATINGS, ratingService.getAllRating());
 		logger.info("rating was deleted");
-		return "redirect:/rating/list";
+		return REDIRECT;
 	}
 }

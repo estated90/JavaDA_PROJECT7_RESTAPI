@@ -51,7 +51,7 @@ class BidListControllerTest {
 	}
 
 	@Test
-	public void testAddListBidList() throws Exception {
+	void testAddListBidList() throws Exception {
 		bidList.setAccount("test");
 		bidList.setType("type test");
 		bidList.setBidQuantity(20);
@@ -59,7 +59,7 @@ class BidListControllerTest {
 	}
 
 	@Test
-	public void testListBidList() throws Exception {
+	void testListBidList() throws Exception {
 		List<BidList> bidListReturned = new ArrayList<>();
 		when(bidListService.getAllBidList()).thenReturn(bidListReturned);
 		final Model model = new ExtendedModelMap();
@@ -68,7 +68,7 @@ class BidListControllerTest {
 	}
 
 	@Test
-	public void testPostBidList() throws Exception {
+	void testPostBidList() throws Exception {
 		bidList.setAccount("test");
 		bidList.setType("type test");
 		bidList.setBidQuantity(20);
@@ -82,9 +82,9 @@ class BidListControllerTest {
 		assertNotNull(model.asMap().get("bidlist"));
 		assertEquals("redirect:/bidList/list", bidListController.validate(bidList, bindingResult, model));
 	}
-	
+
 	@Test
-	public void testPostBidListError() throws Exception {
+	void testPostBidListError() throws Exception {
 		when(bindingResult.hasErrors()).thenReturn(true);
 		final Model model = new ExtendedModelMap();
 		bidListController.validate(bidList, bindingResult, model);
@@ -92,9 +92,9 @@ class BidListControllerTest {
 		assertNull(model.asMap().get("bidList"));
 		assertEquals("bidList/add", bidListController.validate(bidList, bindingResult, model));
 	}
-	
+
 	@Test
-	public void testUpdateBidList() throws Exception {
+	void testUpdateBidList() throws Exception {
 		bidList.setBidListId(1);
 		bidList.setAccount("test");
 		bidList.setType("type test");
@@ -105,9 +105,9 @@ class BidListControllerTest {
 		assertNotNull(model.asMap().get("bidList"));
 		assertEquals("bidList/update", bidListController.showUpdateForm(1, model));
 	}
-	
+
 	@Test
-	public void testPutBidList() throws Exception {
+	void testPutBidList() throws Exception {
 		bidList.setBidListId(1);
 		bidList.setAccount("test");
 		bidList.setType("type test");
@@ -119,9 +119,9 @@ class BidListControllerTest {
 		assertNotNull(model.asMap().get("bidlists"));
 		assertEquals("redirect:/bidList/list", bidListController.updateBid(1, bidList, bindingResult, model));
 	}
-	
+
 	@Test
-	public void testPUtBidListError() throws Exception {
+	void testPUtBidListError() throws Exception {
 		when(bindingResult.hasErrors()).thenReturn(true);
 		final Model model = new ExtendedModelMap();
 		bidListController.updateBid(1, bidList, bindingResult, model);
@@ -129,9 +129,9 @@ class BidListControllerTest {
 		assertNull(model.asMap().get("bidLists"));
 		assertEquals("bidList/update", bidListController.updateBid(1, bidList, bindingResult, model));
 	}
-	
+
 	@Test
-	public void testDeleteBidList() throws Exception {
+	void testDeleteBidList() throws Exception {
 		bidList.setBidListId(1);
 		bidList.setAccount("test");
 		bidList.setType("type test");

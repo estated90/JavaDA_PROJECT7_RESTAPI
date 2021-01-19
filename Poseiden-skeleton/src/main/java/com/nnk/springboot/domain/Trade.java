@@ -10,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
-@Table(name = "Trade")
+@Table(name = "trade")
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +65,7 @@ public class Trade {
     private String side;
 
     public Trade() {
-	// TODO Auto-generated constructor stub
+    	super();
     }
 
     /**

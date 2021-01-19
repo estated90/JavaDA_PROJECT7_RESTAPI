@@ -2,8 +2,6 @@ package com.nnk.springboot.security;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,17 +10,16 @@ import com.nnk.springboot.domain.User;
 
 public class MyUserPrincipal implements UserDetails {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	private User user;
 
-    public MyUserPrincipal(User user) {
-        this.setUser(user);
-    }
+	public MyUserPrincipal(User user) {
+		this.setUser(user);
+	}
 
 	public User getUser() {
 		return user;
@@ -34,18 +31,17 @@ public class MyUserPrincipal implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-        final List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+user.getRole()));
-        return authorities;
+		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
 	}
 
 	@Override
 	public String getPassword() {
-        return user.getPassword();
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		 return user.getUsername();
+		return user.getUsername();
 	}
 
 	@Override
@@ -67,5 +63,5 @@ public class MyUserPrincipal implements UserDetails {
 	public boolean isEnabled() {
 		return user.isEnabled();
 	}
-	
+
 }

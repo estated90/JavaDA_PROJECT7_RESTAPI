@@ -9,8 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
-@Table(name = "CurvePoint")
+@Table(name = "curvepoint")
 public class CurvePoint {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

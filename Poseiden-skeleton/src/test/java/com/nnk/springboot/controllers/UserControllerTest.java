@@ -28,102 +28,102 @@ import com.nnk.springboot.interfaces.UserService;
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
-	@Mock
-	private static UserService userService;
-	@Mock
-	private BindingResult bindingResult;
-	@Autowired
-	private User user;
-	@InjectMocks
-	private UserController userController = new UserController();
+    @Mock
+    private static UserService userService;
+    @Mock
+    private BindingResult bindingResult;
+    @Autowired
+    private User user;
+    @InjectMocks
+    private UserController userController = new UserController();
 
-	@BeforeAll
-	private static void init() {
-	}
+    @BeforeAll
+    private static void init() {
+    }
 
-	@BeforeEach
-	private void setUpPerTest() {
-		user = new User();
-		user.setFullname("test");
-		user.setUsername("test");
-		user.setPassword("test");
-		user.setRole("USER");
-	}
+    @BeforeEach
+    private void setUpPerTest() {
+	user = new User();
+	user.setFullname("test");
+	user.setUsername("test");
+	user.setPassword("test");
+	user.setRole("USER");
+    }
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+    }
 
-	@Test
-	public void testAddUser() throws Exception {
-		assertEquals("user/add", userController.addUser(user));
-	}
+    @Test
+    void testAddUser() throws Exception {
+	assertEquals("user/add", userController.addUser(user));
+    }
 
-	@Test
-	public void testUser() throws Exception {
-		List<User> userReturned = new ArrayList<>();
-		when(userService.findAllUser()).thenReturn(userReturned);
-		final Model model = new ExtendedModelMap();
-		assertEquals("user/list", userController.home(model));
-		assertNotNull(model.asMap().get("users"));
-	}
+    @Test
+    void testUser() throws Exception {
+	List<User> userReturned = new ArrayList<>();
+	when(userService.findAllUser()).thenReturn(userReturned);
+	final Model model = new ExtendedModelMap();
+	assertEquals("user/list", userController.home(model));
+	assertNotNull(model.asMap().get("users"));
+    }
 
-	@Test
-	public void testPostUser() throws Exception {
-		List<User> userReturned = new ArrayList<>();
-		userReturned.add(user);
-		when(userService.saveUserDb(any(User.class))).thenReturn(user);
-		when(userService.findAllUser()).thenReturn(userReturned);
-		when(bindingResult.hasErrors()).thenReturn(false);
-		final Model model = new ExtendedModelMap();
-		userController.validate(user, bindingResult, model);
-		assertNotNull(model.asMap().get("users"));
-		assertEquals("redirect:/user/list", userController.validate(user, bindingResult, model));
-	}
+    @Test
+    void testPostUser() throws Exception {
+	List<User> userReturned = new ArrayList<>();
+	userReturned.add(user);
+	when(userService.saveUserDb(any(User.class))).thenReturn(user);
+	when(userService.findAllUser()).thenReturn(userReturned);
+	when(bindingResult.hasErrors()).thenReturn(false);
+	final Model model = new ExtendedModelMap();
+	userController.validate(user, bindingResult, model);
+	assertNotNull(model.asMap().get("users"));
+	assertEquals("redirect:/user/list", userController.validate(user, bindingResult, model));
+    }
 
-	@Test
-	public void testPostUserError() throws Exception {
-		when(bindingResult.hasErrors()).thenReturn(true);
-		final Model model = new ExtendedModelMap();
-		userController.validate(user, bindingResult, model);
-		assertNotNull(model.asMap().get("errors"));
-		assertNull(model.asMap().get("user"));
-		assertEquals("user/add", userController.validate(user, bindingResult, model));
-	}
+    @Test
+    void testPostUserError() throws Exception {
+	when(bindingResult.hasErrors()).thenReturn(true);
+	final Model model = new ExtendedModelMap();
+	userController.validate(user, bindingResult, model);
+	assertNotNull(model.asMap().get("errors"));
+	assertNull(model.asMap().get("user"));
+	assertEquals("user/add", userController.validate(user, bindingResult, model));
+    }
 
-	@Test
-	public void testUpdateCurve() throws Exception {
-		when(userService.findById(any())).thenReturn(user);
-		final Model model = new ExtendedModelMap();
-		userController.showUpdateForm(1, model);
-		assertNotNull(model.asMap().get("user"));
-		assertEquals("user/update", userController.showUpdateForm(1, model));
-	}
+    @Test
+    void testUpdateCurve() throws Exception {
+	when(userService.findById(any())).thenReturn(user);
+	final Model model = new ExtendedModelMap();
+	userController.showUpdateForm(1, model);
+	assertNotNull(model.asMap().get("user"));
+	assertEquals("user/update", userController.showUpdateForm(1, model));
+    }
 
-	@Test
-	public void testPutUser() throws Exception {
-		when(bindingResult.hasErrors()).thenReturn(false);
-		final Model model = new ExtendedModelMap();
-		userController.updateUser(1, user, bindingResult, model);
-		assertNotNull(model.asMap().get("users"));
-		assertEquals("redirect:/user/list", userController.updateUser(1, user, bindingResult, model));
-	}
+    @Test
+    void testPutUser() throws Exception {
+	when(bindingResult.hasErrors()).thenReturn(false);
+	final Model model = new ExtendedModelMap();
+	userController.updateUser(1, user, bindingResult, model);
+	assertNotNull(model.asMap().get("users"));
+	assertEquals("redirect:/user/list", userController.updateUser(1, user, bindingResult, model));
+    }
 
-	@Test
-	public void testPutUserError() throws Exception {
-		when(bindingResult.hasErrors()).thenReturn(true);
-		final Model model = new ExtendedModelMap();
-		userController.updateUser(1, user, bindingResult, model);
-		assertNotNull(model.asMap().get("errors"));
-		assertNull(model.asMap().get("users"));
-		assertEquals("user/update", userController.updateUser(1, user, bindingResult, model));
-	}
+    @Test
+    void testPutUserError() throws Exception {
+	when(bindingResult.hasErrors()).thenReturn(true);
+	final Model model = new ExtendedModelMap();
+	userController.updateUser(1, user, bindingResult, model);
+	assertNotNull(model.asMap().get("errors"));
+	assertNull(model.asMap().get("users"));
+	assertEquals("user/update", userController.updateUser(1, user, bindingResult, model));
+    }
 
-	@Test
-	public void testDeleteUser() throws Exception {
-		final Model model = new ExtendedModelMap();
-		userController.deleteUser(1, model);
-		assertNotNull(model.asMap().get("users"));
-		assertEquals("redirect:/user/list", userController.deleteUser(1, model));
-	}
+    @Test
+    void testDeleteUser() throws Exception {
+	final Model model = new ExtendedModelMap();
+	userController.deleteUser(1, model);
+	assertNotNull(model.asMap().get("users"));
+	assertEquals("redirect:/user/list", userController.deleteUser(1, model));
+    }
 }

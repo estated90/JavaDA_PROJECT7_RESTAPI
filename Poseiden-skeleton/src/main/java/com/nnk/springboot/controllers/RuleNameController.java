@@ -11,30 +11,49 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.interfaces.RuleNameService;
 
+/**
+ * @author nicolas
+ * <p>Controller CRUD to access the Rules data</p>
+ */
 @Controller
 public class RuleNameController {
 
 	private static final Logger logger = LogManager.getLogger("RuleNameController");
 	@Autowired
 	private RuleNameService ruleNameService;
+	private static final String RULENAMES = "ruleNames";
+	private static final String REDIRECT = "redirect:/ruleName/list";
 
-	@RequestMapping("/ruleName/list")
+	/**
+	 * @param model to add from
+	 * @return the link of page
+	 */
+	@GetMapping("/ruleName/list")
 	public String home(Model model) {
 		logger.info("Getting all rule name of DB");
-		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
+		model.addAttribute(RULENAMES, ruleNameService.getAllRuleName());
 		return "ruleName/list";
 	}
 
+	/**
+	 * @param bid as an object
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/add")
 	public String addRuleForm(RuleName bid) {
 		return "ruleName/add";
 	}
 
+	/**
+	 * @param ruleName as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/ruleName/validate")
 	public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
 		logger.info("Creation of the rule name : {}", ruleName);
@@ -44,11 +63,16 @@ public class RuleNameController {
 			return "ruleName/add";
 		}
 		ruleNameService.saveRuleNameDb(ruleName);
-		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
+		model.addAttribute(RULENAMES, ruleNameService.getAllRuleName());
 		logger.info("{} has been created in the db", ruleName);
-		return "redirect:/ruleName/list";
+		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("Getting rule name with id : {}", id);
@@ -58,6 +82,13 @@ public class RuleNameController {
 		return "ruleName/update";
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param ruleName as an object
+	 * @param result control validity object
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@PostMapping("/ruleName/update/{id}")
 	public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result,
 			Model model) {
@@ -68,17 +99,22 @@ public class RuleNameController {
 			return "ruleName/update";
 		}
 		ruleNameService.updateRuleName(id, ruleName);
-		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
+		model.addAttribute(RULENAMES, ruleNameService.getAllRuleName());
 		logger.info("rule name was udpated");
-		return "redirect:/ruleName/list";
+		return REDIRECT;
 	}
 
+	/**
+	 * @param id of the bid as int
+	 * @param model to add from
+	 * @return the link of page
+	 */
 	@GetMapping("/ruleName/delete/{id}")
 	public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
 		logger.info("Deleting rule name with id : {}", id);
 		ruleNameService.deletRuleName(id);
-		model.addAttribute("ruleNames", ruleNameService.getAllRuleName());
+		model.addAttribute(RULENAMES, ruleNameService.getAllRuleName());
 		logger.info("rule name was deleted");
-		return "redirect:/ruleName/list";
+		return REDIRECT;
 	}
 }

@@ -18,8 +18,7 @@ public class PasswordManagerImpl implements PasswordManager {
 	public String passwordEncoder(String passwordToEncode) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String password = passwordToEncode;
-		String encodedPassword = passwordEncoder.encode(password);
-		return encodedPassword;
+		return passwordEncoder.encode(password);
 	}
 
 	@Override
@@ -27,7 +26,7 @@ public class PasswordManagerImpl implements PasswordManager {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.matches(password, encodedPassword);
 	}
-	
+
 	@Override
 	public boolean isValidPassword(String password) {
 		// Regex to check valid password.

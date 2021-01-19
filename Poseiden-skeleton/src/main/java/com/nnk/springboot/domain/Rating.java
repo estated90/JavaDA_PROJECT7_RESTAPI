@@ -8,8 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
-@Table(name = "Rating")
+@Table(name = "rating")
 public class Rating {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +30,7 @@ public class Rating {
 	private int orderNumber;
 
 	public Rating() {
+		super();
 	}
 
 	/**

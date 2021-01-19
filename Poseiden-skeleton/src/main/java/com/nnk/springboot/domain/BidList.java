@@ -10,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author nicol
+ *
+ */
 @Entity
-@Table(name = "BidList")
+@Table(name = "bidList")
 public class BidList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,8 +65,9 @@ public class BidList {
 	private String sourceListId;
 	@Column(name = "side", length = 125)
 	private String side;
-	
+
 	public BidList() {
+		super();
 	}
 
 	/**
@@ -78,6 +83,7 @@ public class BidList {
 	public void setBidListId(Integer bidListId) {
 		this.bidListId = bidListId;
 	}
+
 	/**
 	 * @return the account
 	 */
