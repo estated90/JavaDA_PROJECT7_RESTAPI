@@ -36,11 +36,11 @@
 ## Running App
 
 1. With a command prompt of your choice move to the root of project
-2. Type: cd /Poseidon
+2. Type: cd Poseiden-skeleton\
 3. Use command: mvn spring-boot:run
 
 ## Testing
 
 1. With a command prompt of your choice move to the root of project
-2. Type: cd /Poseidon
+2. Type: cd Poseiden-skeleton\
 3. Use command: mvn test
