@@ -17,7 +17,7 @@ import org.hibernate.annotations.ColumnDefault;
  *
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User implements Serializable {
 	/**
 	 * 

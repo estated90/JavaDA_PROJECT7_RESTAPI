@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  *
  */
 @Entity
-@Table(name = "BidList")
+@Table(name = "bidList")
 public class BidList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

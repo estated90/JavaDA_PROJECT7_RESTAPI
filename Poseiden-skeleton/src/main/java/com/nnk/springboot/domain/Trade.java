@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  *
  */
 @Entity
-@Table(name = "Trade")
+@Table(name = "trade")
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

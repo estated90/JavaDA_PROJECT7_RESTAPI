@@ -14,7 +14,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "CurvePoint")
+@Table(name = "curvepoint")
 public class CurvePoint {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

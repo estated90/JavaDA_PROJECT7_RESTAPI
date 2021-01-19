@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
  *
  */
 @Entity
-@Table(name = "RuleName")
+@Table(name = "rulename")
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
