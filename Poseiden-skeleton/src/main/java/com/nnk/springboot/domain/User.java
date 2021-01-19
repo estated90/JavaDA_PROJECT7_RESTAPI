@@ -29,7 +29,7 @@ public class User implements Serializable {
 	@NotBlank(message = "Username is mandatory")
 	@Column(name = "username", unique = true)
 	private String username;
-	@NotBlank(message = "Password is mandatory")
+	@NotBlank(message = "Password must have at least 8 characters, 1 Upper and lower case and 1 special character")
 	private String password;
 	@NotBlank(message = "FullName is mandatory")
 	private String fullname;

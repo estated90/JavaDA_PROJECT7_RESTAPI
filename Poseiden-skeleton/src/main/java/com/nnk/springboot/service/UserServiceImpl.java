@@ -40,7 +40,8 @@ public class UserServiceImpl implements UserService {
 			logger.info("User created:{}", user);
 			return user;
 		} else {
-			return null;
+			logger.info("Password do not follow securioty requirement");
+			throw new UserException("Password need at least 8 characters, 1 Uppercase, 1 number, 1 special character");
 		}
 	}
 
